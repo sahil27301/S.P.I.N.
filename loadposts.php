@@ -77,7 +77,7 @@ if (isset($_POST['submit'])) {
         </select>
         <hr>
         <label for="photo">Select a photo (multiple photos allowed): </label>
-        <input type="file" name="photos[]" id="photo" multiple>
+        <input type="file" name="photos[]" id="photo" multiple required>
         <hr>
         <label for="caption">Enter the caption</label>
         <textarea name="caption" id="caption" cols="30" rows="5" placeholder="Start typing here..." style="vertical-align: middle;"></textarea>

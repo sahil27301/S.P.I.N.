@@ -24,7 +24,9 @@ create table post(
 create table comments(
     post_id varchar(20),
     comment varchar(260),
-    foreign key(post_id) references post(post_id)
+    user_id varchar(20),
+    foreign key(post_id) references post(post_id),
+    foreign key(user_id) references user(user_id)
 );
 create table likes(
     post_id varchar(20),

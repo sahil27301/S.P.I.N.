@@ -44,6 +44,7 @@ if (isset($_POST['submit'])) {
     } else {
         echo "One or more unsupported image type!";
     }
+    //for viewing images see load.php
 }
 ?>
 <html>

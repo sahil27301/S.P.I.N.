@@ -111,7 +111,7 @@ if (isset($_POST['insert'])) {
             }
             var extension = $("#profile_photo").val().split('.').pop().toLowerCase();
             if (jQuery.inArray(extension, ["gif", "png", "jpg", "jpeg"]) == -1) {
-                alert('File format not supported!');
+                alert('Picture format not supported!');
                 return false;
             }
         });

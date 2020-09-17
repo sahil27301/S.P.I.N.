@@ -109,7 +109,7 @@ if (isset($_POST['insert'])) {
                 alert('Please select an image!');
                 return false;
             }
-            var extension = $("#profile_photo").val().split('.')[1].toLowerCase();
+            var extension = $("#profile_photo").val().split('.').pop().toLowerCase();
             if (jQuery.inArray(extension, ["gif", "png", "jpg", "jpeg"]) == -1) {
                 alert('File format not supported!');
                 return false;

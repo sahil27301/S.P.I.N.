@@ -1,5 +1,7 @@
 <?php
+$errors=array('username' =>'','email'=>'');
 if (isset($_POST['insert'])) {
+
     $host = "localhost";
     $user = "root";
     $password = "";
@@ -8,6 +10,30 @@ if (isset($_POST['insert'])) {
     if ($conn->connect_error) {
         die("connection failed: " . $conn->connect_error);
     }
+    if(isset($_POST['username']))
+    {
+      $username_entered= mysqli_real_escape_string($conn,$_POST['username']);
+      $sql= "SELECT username from user where username='$username_entered'";
+      $username=mysqli_query($conn,$sql);
+      $username_from_db = mysqli_num_rows($username);
+      if($username_from_db)
+      {
+        $errors['username']="Username already exists.Please select a different one";
+      }
+    }
+    if(isset($_POST['email']))
+    {
+      $email_entered= mysqli_real_escape_string($conn,$_POST['email']);
+      $sql= "SELECT email from user where email='$email_entered'";
+      $email=mysqli_query($conn,$sql);
+      $email_from_db = mysqli_num_rows($email);
+      if($email)
+      {
+        $errors['email']="This email has already been registered with S.P.I.N";
+      }
+    }
+    if(!array_filter($errors))
+    {
     $stmt = $conn->prepare("insert into user (firstname, lastname, user_id, bio, privacy, dob, username, password, email, profile_photo) values
         (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ");
@@ -47,6 +73,7 @@ if (isset($_POST['insert'])) {
     mysqli_stmt_close($stmt2);
     mysqli_stmt_close($stmt);
     mysqli_close($conn);
+  }
 }
 ?>
 <html>
@@ -88,12 +115,14 @@ if (isset($_POST['insert'])) {
         <hr>
         <label for="username">Enter your username</label>
         <input type="text" id="username" name="username" required>
+        <div class=""><?php echo $errors['username'];?></div>   <!--Outputs error-->
         <hr>
         <label for="password">Enter your password</label>
         <input type="password" id="password" name="password" required>
         <hr>
         <label for="email">Enter your email</label>
         <input type="email" id="email" name="email" required>
+        <div class=""><?php echo $errors['email'];?></div>   <!--Outputs error-->
         <hr>
         <label for="profile_photo">Select the image file</label>
         <input type="file" name="profile_photo" id="profile_photo">

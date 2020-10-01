@@ -10,28 +10,26 @@ if (isset($_POST['insert'])) {
     if ($conn->connect_error) {
         die("connection failed: " . $conn->connect_error);
     }
-    if(isset($_POST['username']))
+    // Check if the username is unique
+    $username_entered= mysqli_real_escape_string($conn,$_POST['username']);
+    $sql= "SELECT username from user where username='$username_entered'";
+    $username=mysqli_query($conn,$sql);
+    $username_from_db = mysqli_num_rows($username);
+    if($username_from_db)
     {
-      $username_entered= mysqli_real_escape_string($conn,$_POST['username']);
-      $sql= "SELECT username from user where username='$username_entered'";
-      $username=mysqli_query($conn,$sql);
-      $username_from_db = mysqli_num_rows($username);
-      if($username_from_db)
-      {
-        $errors['username']="Username already exists.Please select a different one";
-      }
+    $errors['username']="Username already exists.Please select a different one";
     }
-    if(isset($_POST['email']))
+
+    // Check if the username is unique
+    $email_entered= mysqli_real_escape_string($conn,$_POST['email']);
+    $sql= "SELECT email from user where email='$email_entered'";
+    $email=mysqli_query($conn,$sql);
+    $email_from_db = mysqli_num_rows($email);
+    if($email_from_db)
     {
-      $email_entered= mysqli_real_escape_string($conn,$_POST['email']);
-      $sql= "SELECT email from user where email='$email_entered'";
-      $email=mysqli_query($conn,$sql);
-      $email_from_db = mysqli_num_rows($email);
-      if($email_from_db)
-      {
-        $errors['email']="This email has already been registered with S.P.I.N";
-      }
+    $errors['email']="This email has already been registered with S.P.I.N";
     }
+    
     if(!array_filter($errors))
     {
     $stmt = $conn->prepare("insert into user (firstname, lastname, user_id, bio, privacy, dob, username, password, email, profile_photo) values
@@ -89,7 +87,6 @@ if (isset($_POST['insert'])) {
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 
-<body>
 
   <div class = 'top'>
 
@@ -105,16 +102,23 @@ if (isset($_POST['insert'])) {
 
       <form action="load.php" method="post" , enctype="multipart/form-data">
           <label for="firstname">First name</label>
-          <input type="text" id="firstname" name="firstname" required>
+          <input type="text" id="firstname" name="firstname" required 
+            <?php if (isset($_POST["firstname"]))
+            {
+                echo "value=".$_POST["firstname"];
+            }?>
+          >
           <hr>
           <label for="lastname">Last name</label>
-          <input type="text" id="lastname" name="lastname" required>
+          <input type="text" id="lastname" name="lastname" required
+            <?php if (isset($_POST["lastname"]))
+            {
+                echo "value=".$_POST["lastname"];
+            }?>
+          >
           <hr>
-          <!-- <label for="user_id">Enter the user id</label>
-              <input type="text" id="user_id" name="user_id">
-              <hr> -->
           <label for="bio">Bio</label>
-          <textarea name="bio" id="bio" cols="30" rows="5" placeholder=" Start typing here..." style="vertical-align: middle;"></textarea>
+          <textarea name="bio" id="bio" cols="30" rows="5" placeholder=" Start typing here..." style="vertical-align: middle;"><?php if (isset($_POST["bio"])){echo $_POST["bio"];}?></textarea>
           <hr>
           <label>Privacy type</label>
           <br>
@@ -122,21 +126,43 @@ if (isset($_POST['insert'])) {
           <input type="radio" name="privacy" id="private" value="private" checked>
           <br>
           <label for="open">Open</label>
-          <input type="radio" name="privacy" id="open" value="open">
+          <input type="radio" name="privacy" id="open" value="open" 
+          <?php
+            if (isset($_POST["privacy"]) && $_POST["privacy"]=="open")
+            {
+                echo "checked";
+            } 
+          ?>
+          >
           <hr>
           <label for="dob">Date of birth</label>
-          <input type="date" id="dob" name="dob" required>
+          <input type="date" id="dob" name="dob" required
+            <?php if (isset($_POST["dob"]))
+            {
+                echo "value=".$_POST["dob"];
+            }?>
+          >
           <hr>
           <label for="username">Username</label>
-          <input type="text" id="username" name="username" required>
-         <div class=""><?php echo $errors['username'];?></div>   <!--Outputs error-->
+          <input type="text" id="username" name="username" required
+            <?php if (isset($_POST["username"]))
+            {
+                echo "value=".$_POST["username"];
+            }?>
+          >
+       	  <div class=""><?php echo $errors['username'];?></div>   <!--Outputs error-->
           <hr>
           <label for="password">Password</label>
           <input type="password" id="password" name="password" required>
-          <div class=""><?php echo $errors['email'];?></div>   <!--Outputs error-->
           <hr>
           <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" required>
+          <input type="email" id="email" name="email" required
+            <?php if (isset($_POST["email"]))
+            {
+                echo "value=".$_POST["email"];
+            }?>
+          >
+          <div class=""><?php echo $errors['email'];?></div>   <!--Outputs error-->
           <hr>
           <label for="profile_photo">Select an image file</label>
           <input type="file" name="profile_photo" id="profile_photo">
@@ -146,7 +172,7 @@ if (isset($_POST['insert'])) {
   </div>
 
 
-</form>
+    </form>
 </body>
 <script>
     $(document).ready(function() {

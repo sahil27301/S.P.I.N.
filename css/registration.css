@@ -1,29 +1,27 @@
 body {
   background-color: #ddf3f5;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   text-align: center;
 }
 
-input{
-  border:2px solid #48466d;
+input {
+  border: 2px solid #48466d;
   position: relative;
   padding: 10px;
   border-radius: 8px;
   margin-left: 40px;
 }
 
-
-textarea{
+textarea {
   margin-left: 40px;
   border-radius: 8px;
-  border:2px solid #48466d;
+  border: 2px solid #48466d;
   position: relative;
 }
 
 h3 {
   font-size: 1.2rem;
-  padding-bottom:50px;
-
+  padding-bottom: 50px;
 }
 
 /*SPIN title*/
@@ -32,22 +30,22 @@ h3 {
   font-size: 4.1rem;
   /*color: #364f6b;*/
   color: #112d4e;
-  padding-bottom:50px;
+  padding-bottom: 50px;
 }
 
 /*Sign up title*/
 
-.secondTitle{
+.secondTitle {
   padding-bottom: 30px;
   font-size: 2.5rem;
 }
 
-.mid{
+.mid {
   margin-top: 40px;
 }
-.top{
+.top {
   font-size: 2rem;
-  padding-top:100px;
+  padding-top: 100px;
 }
 
 .submit_btn {
@@ -55,7 +53,7 @@ h3 {
   -webkit-border-radius: 8;
   -moz-border-radius: 8;
   border-radius: 8px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   color: white;
   font-size: 20px;
   background: #389c47;
@@ -67,14 +65,3 @@ h3 {
   background: #257325;
   text-decoration: none;
 }
-
-/*.end-hr{
-  border-style: none;
-  border-top-style: dotted;
-  width : 7%;
-  border-color: #c3bef0;
-  border-width: 10px;
-  position: relative;
-  margin: 50px auto 50px auto;
-  right: 20px;
-}*/

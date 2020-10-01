@@ -31,7 +31,7 @@
             // Setting the error
             $_SESSION["mismatch"]="The username/email and password you entered don't match!";
         }
-    }else {
+    }else if((isset($_POST["username"]) && isset($_POST["username"]))){
         // Setting the error
         $_SESSION["non-existant"]="The username or email you entered doesn't exist!";
     }

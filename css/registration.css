@@ -1,0 +1,67 @@
+body {
+  background-color: #ddf3f5;
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+}
+
+input {
+  border: 2px solid #48466d;
+  position: relative;
+  padding: 10px;
+  border-radius: 8px;
+  margin-left: 40px;
+}
+
+textarea {
+  margin-left: 40px;
+  border-radius: 8px;
+  border: 2px solid #48466d;
+  position: relative;
+}
+
+h3 {
+  font-size: 1.2rem;
+  padding-bottom: 50px;
+}
+
+/*SPIN title*/
+.title {
+  /*font-family: 'Open Sans', sans-serif;*/
+  font-size: 4.1rem;
+  /*color: #364f6b;*/
+  color: #112d4e;
+  padding-bottom: 50px;
+}
+
+/*Sign up title*/
+
+.secondTitle {
+  padding-bottom: 30px;
+  font-size: 2.5rem;
+}
+
+.mid {
+  margin-top: 40px;
+}
+.top {
+  font-size: 2rem;
+  padding-top: 100px;
+}
+
+.submit_btn {
+  margin-top: 30px;
+  -webkit-border-radius: 8;
+  -moz-border-radius: 8;
+  border-radius: 8px;
+  font-family: "Poppins", sans-serif;
+  color: white;
+  font-size: 20px;
+  background: #389c47;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+}
+
+.submit_btn:hover {
+  background: #257325;
+  text-decoration: none;
+}

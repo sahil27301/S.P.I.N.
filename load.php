@@ -82,53 +82,71 @@ if (isset($_POST['insert'])) {
     <meta charset="utf-8">
     <title>load data</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/registration.css">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Montserrat&family=Open+Sans&family=Pacifico&family=Poppins&family=Sacramento&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-    <h1>Trial form</h1>
-    <form action="load.php" method="post" , enctype="multipart/form-data">
-        <label for="firstname">Enter your first name</label>
-        <input type="text" id="firstname" name="firstname" required>
-        <hr>
-        <label for="lastname">Enter your last name</label>
-        <input type="text" id="lastname" name="lastname" required>
-        <hr>
-        <!-- <label for="user_id">Enter the user id</label>
-            <input type="text" id="user_id" name="user_id">
-            <hr> -->
-        <label for="bio">Enter your bio</label>
-        <textarea name="bio" id="bio" cols="30" rows="5" placeholder="Start typing here..." style="vertical-align: middle;"></textarea>
-        <hr>
-        <label>select the privacy type</label>
-        <br>
-        <label for="private">private</label>
-        <input type="radio" name="privacy" id="private" value="private" checked>
-        <br>
-        <label for="open">open</label>
-        <input type="radio" name="privacy" id="open" value="open">
-        <hr>
-        <label for="dob">Select your date of birth</label>
-        <input type="date" id="dob" name="dob" required>
-        <hr>
-        <label for="username">Enter your username</label>
-        <input type="text" id="username" name="username" required>
-        <div class=""><?php echo $errors['username'];?></div>   <!--Outputs error-->
-        <hr>
-        <label for="password">Enter your password</label>
-        <input type="password" id="password" name="password" required>
-        <hr>
-        <label for="email">Enter your email</label>
-        <input type="email" id="email" name="email" required>
-        <div class=""><?php echo $errors['email'];?></div>   <!--Outputs error-->
-        <hr>
-        <label for="profile_photo">Select the image file</label>
-        <input type="file" name="profile_photo" id="profile_photo">
-        <hr>
-        <input type="submit" value="Insert details" name="insert" id="insert">
-    </form>
+
+  <div class = 'top'>
+
+    <h1 class='title'>S.P.I.N</h1>
+    <h3>Sardar Patel Institutional Network</h3>
+    <h1 class = 'secondTitle' >Sign Up</h1>
+
+  </div>
+
+  <div class="mid">
+
+    <!--I made labels simpler and concise-->
+
+      <form action="load.php" method="post" , enctype="multipart/form-data">
+          <label for="firstname">First name</label>
+          <input type="text" id="firstname" name="firstname" required>
+          <hr>
+          <label for="lastname">Last name</label>
+          <input type="text" id="lastname" name="lastname" required>
+          <hr>
+          <!-- <label for="user_id">Enter the user id</label>
+              <input type="text" id="user_id" name="user_id">
+              <hr> -->
+          <label for="bio">Bio</label>
+          <textarea name="bio" id="bio" cols="30" rows="5" placeholder=" Start typing here..." style="vertical-align: middle;"></textarea>
+          <hr>
+          <label>Privacy type</label>
+          <br>
+          <label for="private">Private</label>
+          <input type="radio" name="privacy" id="private" value="private" checked>
+          <br>
+          <label for="open">Open</label>
+          <input type="radio" name="privacy" id="open" value="open">
+          <hr>
+          <label for="dob">Date of birth</label>
+          <input type="date" id="dob" name="dob" required>
+          <hr>
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" required>
+         <div class=""><?php echo $errors['username'];?></div>   <!--Outputs error-->
+          <hr>
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required>
+          <div class=""><?php echo $errors['email'];?></div>   <!--Outputs error-->
+          <hr>
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" required>
+          <hr>
+          <label for="profile_photo">Select an image file</label>
+          <input type="file" name="profile_photo" id="profile_photo">
+          <hr class='end-hr'>
+          <input class='submit_btn' type="submit" value="Insert Details" name="insert" id="insert">
+
+  </div>
+
+
+</form>
 </body>
 <script>
     $(document).ready(function() {

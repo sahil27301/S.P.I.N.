@@ -2,7 +2,7 @@ body {
   background-color: #ddf3f5;
   /*font-family: 'Merriweather', serif;*/
   /*font-family: 'Montserrat', serif;*/
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   text-align: center;
 }
 
@@ -17,22 +17,26 @@ h3 {
   font-size: 1.2rem;
 }
 
-.top{
-  padding-top:100px;
+.top {
+  padding-top: 30px;
 }
 
-.input{
+.input {
   font-size: 1rem;
   height: 25px;
   width: 400px;
 }
 
-input{
-  border:2px solid #48466d;
+input {
+  border: 2px solid #48466d;
   position: relative;
   right: 20px;
   padding: 10px;
   border-radius: 8px;
+}
+
+:focus {
+  outline: none;
 }
 
 .login {
@@ -49,14 +53,15 @@ input{
 }
 
 .login:hover {
+  cursor: pointer;
   background: #3c82fa;
   text-decoration: none;
 }
 
-hr{
+hr {
   border-style: none;
   border-top-style: dotted;
-  width : 7%;
+  width: 7%;
   border-color: #c3bef0;
   border-width: 10px;
   position: relative;
@@ -64,12 +69,12 @@ hr{
   right: 20px;
 }
 
-.newhere{
+.newhere {
   margin-bottom: 30px;
 }
 
-.create{
-  border:2px solid #48466d;
+.create {
+  border: 2px solid #48466d;
   margin-top: 20px;
   -webkit-border-radius: 8;
   -moz-border-radius: 8;

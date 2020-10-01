@@ -27,7 +27,7 @@ if (isset($_POST['insert'])) {
       $sql= "SELECT email from user where email='$email_entered'";
       $email=mysqli_query($conn,$sql);
       $email_from_db = mysqli_num_rows($email);
-      if($email)
+      if($email_from_db)
       {
         $errors['email']="This email has already been registered with S.P.I.N";
       }

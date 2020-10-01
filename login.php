@@ -1,3 +1,6 @@
+<?php
+  session_start();
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -22,7 +25,7 @@
 
 
 
-    <form class="form" action="index.html" method="post">
+    <form class="form" action="authenticate.php" method="post">
 
       <!-- Unordered list without bullets -->
 
@@ -33,8 +36,27 @@
         <li>
 
           <!-- placeholer is for greyish text -->
+          <?php
+            // if an error is set, print the error and destroy the variable
+            if (isset($_SESSION["non-existant"])) {
+              echo $_SESSION["non-existant"]."<br>";
+              unset($_SESSION["non-existant"]);
+            }
+          ?>
+          <input class='input' type="text" name="username" placeholder="Username or Email Address" required>
 
-          <input class = 'input' type="text" name="" placeholder="Username or Email Address">
+        </li>
+
+        <br />
+
+        <li>
+          <?php
+            if (isset($_SESSION["mismatch"])) {
+              echo $_SESSION["mismatch"]."<br>";
+              unset($_SESSION["mismatch"]);
+            }
+          ?>
+          <input class='input' type="password" name="password" placeholder="Password" required>
 
         </li>
 
@@ -42,15 +64,8 @@
 
         <li>
 
-          <input class = 'input' type="password" name="" placeholder="Password">
-
-        </li>
-
-        <br />
-
-        <li>
-
-          <input class = 'login' type="submit" name="" value="Log In">
+          <input class='login' type="submit" name="" value="Log In">
+          <!-- <button class='login' type="submit" name="">Log In</button> -->
 
         </li>
 
@@ -59,9 +74,9 @@
 
       </ul>
 
-      <h3 class = 'newhere'>New here?</h3>
+      <h3 class='newhere'>New here?</h3>
 
-      <a class = 'create' href='load.php'>Create a New Account</a>
+      <a class='create' href='load.php'>Create a New Account</a>
 
 
 

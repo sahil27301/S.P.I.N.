@@ -1,4 +1,9 @@
 <?php
+session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+    exit();
+}
 $host = "localhost";
 $user = "root";
 $password = "";
@@ -18,7 +23,7 @@ if (isset($_POST['submit'])) {
     $result = $stmt2->get_result();
     $row = $result->fetch_assoc();
     $post_id = $current_time . str_pad(($row['count(*)'] + 1), 4, "0", STR_PAD_LEFT);
-    $user_id = $_POST['user_id'];
+    $user_id = $_SESSION['user_id'];
     $curr_date = substr($current_time, 0, 4) . '-' . substr($current_time, 4, 2) . '-' . substr($current_time, 6, 2);
     $curr_time = substr($current_time, 8, 2) . ':' . substr($current_time, 10, 2) . ':' . substr($current_time, 12, 2);
     $upload_time = $curr_date . ' ' . $curr_time;
@@ -43,7 +48,9 @@ if (isset($_POST['submit'])) {
         }
     } else {
         echo "One or more unsupported image type!";
+        $type_error=true;
     }
+    mysqli_close($conn);
     //for viewing images see load.php
 }
 ?>
@@ -61,26 +68,15 @@ if (isset($_POST['submit'])) {
 <body>
     <h1>Trial posts form</h1>
     <form action="loadposts.php" method="post" , enctype="multipart/form-data">
-        <label for="user_id">Select the user id: </label>
-        <select name="user_id" id="user_id">
-            <?php
-            $stmt = $conn->prepare("select user_id from user");
-            $stmt->execute();
-            $result = $stmt->get_result();
-            while ($row = $result->fetch_assoc()) {
-                echo "
-                    <option value=" . $row['user_id'] . ">" . $row['user_id'] . "</option>
-                ";
-            }
-            mysqli_stmt_close($stmt);
-            ?>
-        </select>
+        <?php
+            echo "Adding posts for ".$_SESSION['username'];
+        ?>
         <hr>
         <label for="photo">Select a photo (multiple photos allowed): </label>
         <input type="file" name="photos[]" id="photo" multiple required>
         <hr>
         <label for="caption">Enter the caption</label>
-        <textarea name="caption" id="caption" cols="30" rows="5" placeholder="Start typing here..." style="vertical-align: middle;"></textarea>
+        <textarea name="caption" id="caption" cols="30" rows="5" placeholder="Start typing here..." style="vertical-align: middle;"><?php if(isset($type_error)){echo $_POST["caption"]; unset($type_error);} ?></textarea>
         <hr>
         <button type='submit' name='submit'> add photos</button>
     </form>

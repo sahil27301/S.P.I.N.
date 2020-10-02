@@ -89,7 +89,10 @@
   </div>
 
 
-
+<?php
+// Making sure no sessions are set if the person is on the login page
+session_destroy();
+?>
 </body>
 
 </html>

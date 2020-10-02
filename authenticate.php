@@ -1,6 +1,7 @@
 <?php
     if (!(isset($_POST["username"]) && isset($_POST["username"]))) {
         header("Location: login.php");
+        exit();
     }
     // I've used session variables to store the username on success and error message on failure
     session_start();
@@ -14,7 +15,7 @@
         die("connection failed: " . $conn->connect_error);
     }
     // The user might've entered the username or email so check both
-    $stmt = $conn->prepare("select password from user where username=? or email=?");
+    $stmt = $conn->prepare("select user_id,password from user where username=? or email=?");
     $stmt->bind_param("ss", $username, $username);
     $username=$_POST["username"];
     $stmt->execute();
@@ -23,15 +24,18 @@
     if(mysqli_num_rows($result))
     {
         $row=$result->fetch_assoc();
-        if(password_verify($_POST["password"], $row['password']))
+        if(password_verify($_POST["password"], $row["password"]))
         {
             $_SESSION["username"]=$username;
+            $_SESSION["user_id"]=$row["user_id"];
+            header("Location: loadposts.php");
+            exit();
             // Redirect to the landing page
         }else {
             // Setting the error
             $_SESSION["mismatch"]="The username/email and password you entered don't match!";
         }
-    }else if((isset($_POST["username"]) && isset($_POST["username"]))){
+    }else{
         // Setting the error
         $_SESSION["non-existant"]="The username or email you entered doesn't exist!";
     }

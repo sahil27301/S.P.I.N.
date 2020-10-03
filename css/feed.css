@@ -1,0 +1,140 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: "Lato", sans-serif;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+header {
+  background-color: cornflowerblue;
+  width: 100%;
+  height: 75px;
+  overflow: hidden;
+}
+h2 {
+  display: inline-block;
+  padding-left: 20px;
+  font-size: 30px;
+  color: #fff;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 50px auto;
+  width: 450px;
+  height: 300px;
+}
+body.show-nav {
+  transform: translate(200px); /* width should be the parameter value */
+}
+.loader {
+  opacity: 0;
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+  margin-bottom: 50px;
+  bottom: 50px;
+  transition: opacity 0.3s ease-in;
+}
+.loader.show {
+  opacity: 1;
+}
+.circle {
+  background-color: black;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  margin: 10px;
+  animation: bounce 0.5s ease-in infinite;
+}
+.circle:nth-of-type(2) {
+  animation-delay: 0.1s;
+}
+.circle:nth-of-type(3) {
+  animation-delay: 0.2s;
+}
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+nav {
+  background-color: #0063b2ff;
+  border-right: 2px solid rgba(30, 120, 117, 0.1);
+  color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 100vh;
+  z-index: 100;
+  transform: translateX(-100%);
+}
+nav .logo {
+  padding: 30px 0;
+  text-align: center;
+}
+nav .logo img {
+  border-radius: 20%;
+}
+.posts-style {
+  margin-top: 10px;
+  padding: 20px;
+  width: 700px;
+  height: 400px;
+  background-color: #f4f4f4;
+}
+.posts-style ul {
+  list-style: none;
+}
+nav ul {
+  padding: 0;
+  list-style-type: none;
+  margin: 0;
+}
+nav ul li {
+  border-bottom: 1px solid #fff;
+  padding: 20px;
+}
+
+nav ul li a {
+  font-size: 20px;
+  color: #fff;
+  text-decoration: none;
+  border: 0;
+}
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+.toggle {
+  border: 0;
+  border-radius: 2px;
+  background-color: cornflowerblue;
+  color: #fff;
+  margin-left: 10px;
+  margin-top: 10px;
+  display: inline-block;
+  font-size: small;
+}
+.toggle:focus {
+  outline: 0;
+}
+.toggle:hover {
+  background-color: darkblue;
+}

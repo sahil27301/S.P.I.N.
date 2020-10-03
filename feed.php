@@ -1,19 +1,3 @@
-<?php
-$host = "localhost";
-$user = "root";
-$password = "";
-$database = "spin";
-$conn = mysqli_connect($host, $user, $password, $database);
-if ($conn->connect_error) {
-    die("connection failed: " . $conn->connect_error);
-
-    $sql = "SELECT * from posts"; //We need to change this query since friends can see their friends posts only
-    $result = mysqli_query($conn, $sql);
-    $posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    mysqli_free_result($result);
-    echo json_encode($posts);
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,22 +30,8 @@ if ($conn->connect_error) {
         <h2>S.P.I.N</h2>
         <button id="fetchpost">Fetch Posts</button>
     </header>
-    <!-- <div class="container" style="background-color: red;">
-        <div class="post-container">
-            <h2>feed</h2>
-        </div>
-    </div>
-    <div class="container" style="background-color: red;">
-        <div class="post-container">
-            <h2>feed</h2>
-        </div>
-    </div>
-    <div class="container" style="background-color: red;">
-        <div class="post-container">
-            <h2>feed</h2>
-        </div>
-    </div> -->
-    <div class="loader">
+    <div id="postsarea"></div>
+    <div id="loader" class="loader">
         <!-- loading css animation -->
         <div class="circle"></div>
         <div class="circle"></div>

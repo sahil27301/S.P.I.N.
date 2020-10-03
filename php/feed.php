@@ -37,7 +37,7 @@
         <div class="circle"></div>
         <div class="circle"></div>
     </div>
-    <script src="feed.js"></script>
+    <script src="js/feed.js"></script>
 </body>
 
 </html>

@@ -1,4 +1,4 @@
-<?php
+<?php  //this php file is used to return the posts where I have passed start and limit parameters via AJAX
 $host = "localhost";
 $user = "root";
 $password = "";
@@ -16,5 +16,5 @@ if (isset($_POST['start'])) {
     if (mysqli_num_rows($result) > 0) {
         echo json_encode($posts);
     } else
-        echo "Reached";
+        echo "Reached"; //No more posts left to fetch. Need to add "Reached the end of the feed" statement at the end of the feed
 }

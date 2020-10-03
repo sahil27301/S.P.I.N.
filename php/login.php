@@ -7,8 +7,8 @@
 <head>
   <meta charset="utf-8">
   <title>S.P.I.N</title>
-  <link rel="stylesheet" href="css/styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Montserrat&family=Open+Sans&family=Pacifico&family=Poppins&family=Sacramento&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/spin/css/styles.css">
 
 <body>
 

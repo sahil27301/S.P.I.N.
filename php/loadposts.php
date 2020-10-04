@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['username'])) {
+if (!(isset($_SESSION["username"]) && isset($_SESSION["user_id"]))) {
     header("Location: login.php");
     exit();
 }
@@ -46,6 +46,8 @@ if (isset($_POST['submit'])) {
             $image = file_get_contents($_FILES['photos']['tmp_name'][$i]);
             $stmt2->execute();
         }
+        header("Location: feed.php");
+        exit();
     } else {
         echo "One or more unsupported image type!";
         $type_error=true;

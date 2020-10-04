@@ -1,5 +1,5 @@
 <?php
-    if (!(isset($_POST["username"]) && isset($_POST["username"]))) {
+    if (!(isset($_POST["username"]) && isset($_POST["password"]))) {
         header("Location: login.php");
         exit();
     }
@@ -28,7 +28,7 @@
         {
             $_SESSION["username"]=$username;
             $_SESSION["user_id"]=$row["user_id"];
-            header("Location: loadposts.php");
+            header("Location: feed.php");
             exit();
             // Redirect to the landing page
         }else {

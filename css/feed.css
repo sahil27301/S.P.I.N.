@@ -3,17 +3,17 @@
 }
 body {
   font-family: "Lato", sans-serif;
-  margin: 0;
+  margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: transform 0.3s ease;
 }
 .navbar {
   background-color: cornflowerblue;
-  width: 100%;
   height: 75px;
-  overflow: hidden;
+  /* overflow: hidden; */
+}
+.maketransition {
 }
 h2 {
   display: inline-block;
@@ -76,6 +76,7 @@ h2 {
   background-color: #0063b2ff;
   border-right: 2px solid rgba(30, 120, 117, 0.1);
   color: #fff;
+
   /* position: fixed;
   top: 0;
   left: 0;
@@ -83,6 +84,9 @@ h2 {
   height: 100vh;
   z-index: 100;
   transform: translateX(-100%); */
+}
+#postsarea {
+  transition: transform 0.3s ease;
 }
 .sidebar .logo {
   padding: 30px 0;
@@ -92,6 +96,7 @@ h2 {
   border-radius: 20%;
 }
 .posts-style {
+  margin: auto;
   margin-top: 10px;
   padding: 20px;
   width: 700px;
@@ -359,7 +364,7 @@ a.article:hover {
 /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
 #main {
   transition: margin-left 0.5s; /* If you want a transition effect */
-  padding: 20px;
+  width: 100%;
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */

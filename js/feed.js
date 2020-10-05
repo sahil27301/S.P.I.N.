@@ -11,8 +11,8 @@ var output = "";
 //   document.body.classList.toggle("show-nav");
 // });
 window.addEventListener("scroll", function () {
-  const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-  if (scrollTop + clientHeight >= scrollHeight - 5 && more) {
+  var { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+  if (scrollTop + clientHeight >= scrollHeight && more) {
     loading.classList.add("show");
     setTimeout(() => {
       loading.classList.remove("show");
@@ -64,11 +64,13 @@ function fetchpost() {
       //     "</div>";
       // }
       postsarea.innerHTML = output;
-      start += limit;
+
+      console.log(start);
       // }
     }
   };
   xhr.send(params);
+  start += limit;
   // searching = false;
 }
 

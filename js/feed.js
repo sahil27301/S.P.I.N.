@@ -1,4 +1,4 @@
-const toggle = document.getElementById("toggle");
+// const toggle = document.getElementById("toggle");
 const fetchpostsbtn = document.getElementById("fetchpost");
 const postsarea = document.getElementById("postsarea");
 const loading = document.getElementById("loader");
@@ -7,9 +7,9 @@ var limit = 3;
 // var searching = false;
 var more = true;
 var output = "";
-toggle.addEventListener("click", () => {
-  document.body.classList.toggle("show-nav");
-});
+// toggle.addEventListener("click", () => {
+//   document.body.classList.toggle("show-nav");
+// });
 window.addEventListener("scroll", function () {
   const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
   if (scrollTop + clientHeight >= scrollHeight - 5 && more) {
@@ -72,21 +72,44 @@ function fetchpost() {
   // searching = false;
 }
 
-// execute function after sliding:
-// $(".carousel").on("slid.bs.carousel", function () {
-//   console.log("happened");
-//   // This variable contains all kinds of data and methods related to the carousel
-//   var carouselData = $(this).data("bs.carousel");
-//   // get current index of active element
-//   var currentIndex = carouselData.getItemIndex(
-//     carouselData.$element.find(".item.active")
-//   );
-
-//   // hide carousel controls at begin and end of slides
-//   $(this).children(".carousel-control").show();
-//   if (currentIndex == 0) {
-//     $(this).children(".carousel-control-prev").hide();
-//   } else if (currentIndex + 1 == carouselData.$items.length) {
-//     $(this).children(".carousel-control-next").hide();
+// $(".carousel").on("slid.bs.carousel", "", function () {
+//   var $this;
+//   console.log($(this).children("div.carousel-inner").children("carousel-item"));
+//   $this = $(this);
+//   if (
+//     $(this)
+//       .children("div.carousel-inner .carousel-item:first")
+//       .hasClass("active")
+//   ) {
+//     $this.children(".carousel-control-prev").hide();
+//     $this.children(".carousel-control-next").show();
+//   } else if (
+//     $(this)
+//       .children("div.carousel-inner .carousel-item:last")
+//       .hasClass("active")
+//   ) {
+//     $this.children(".carousel-control-prev").hide();
+//     $this.children(".carousel-control-next").show();
+//   } else {
+//     $this.children(".carousel-control").show();
 //   }
+// });
+//
+//
+//
+// $(document).ready(function () {
+//   $("#sidebar").mCustomScrollbar({
+//     theme: "minimal",
+//   });
+
+//   $("#sidebarCollapse").on("click", function () {
+//     // open or close navbar
+//     $("#sidebar").toggleClass("active");
+//     // $(".wrapper").toggleClass("active");
+//     // close dropdowns
+//     $(".collapse.in").toggleClass("in");
+//     // and also adjust aria-expanded attributes we use for the open/closed arrows
+//     // in our CSS
+//     $("a[aria-expanded=true]").attr("aria-expanded", "false");
+//   });
 // });

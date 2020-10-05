@@ -67,7 +67,6 @@ if (mysqli_num_rows($result) > 0) {
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="sr-only">Next</span>
                 </a>';
-                echo '<script>$(".carousel").children(".carousel-control-prev").hide()</script>';
             }
                 
             echo '</div>';

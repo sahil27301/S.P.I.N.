@@ -29,7 +29,7 @@ if (isset($_POST['insert'])) {
     {
     $errors['email']="This email has already been registered with S.P.I.N";
     }
-    
+
     if(!array_filter($errors))
     {
     $stmt = $conn->prepare("insert into user (firstname, lastname, user_id, bio, privacy, dob, username, password, email, profile_photo) values
@@ -104,7 +104,7 @@ if (isset($_POST['insert'])) {
 
       <form action="load.php" method="post" , enctype="multipart/form-data">
           <label for="firstname">First name</label>
-          <input type="text" id="firstname" name="firstname" required 
+          <input type="text" id="firstname" name="firstname" required
             <?php if (isset($_POST["firstname"]))
             {
                 echo "value=".$_POST["firstname"];
@@ -128,12 +128,12 @@ if (isset($_POST['insert'])) {
           <input type="radio" name="privacy" id="private" value="private" checked>
           <br>
           <label for="open">Open</label>
-          <input type="radio" name="privacy" id="open" value="open" 
+          <input type="radio" name="privacy" id="open" value="open"
           <?php
             if (isset($_POST["privacy"]) && $_POST["privacy"]=="open")
             {
                 echo "checked";
-            } 
+            }
           ?>
           >
           <hr>

@@ -62,25 +62,41 @@ if (isset($_POST['submit'])) {
     <meta charset="utf-8">
     <title>load posts</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Montserrat&family=Open+Sans&family=Pacifico&family=Poppins&family=Sacramento&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/spin/css/upload.css">
 </head>
 
 <body>
-    <h1>Trial posts form</h1>
+
+  <div class = 'top'>
+
+    <h1 class='title'>S.P.I.N</h1>
+    <h3>Sardar Patel Institutional Network</h3>
+    <h1>Make a Post!</h1>
+
+  </div>
+
+  <div class = 'mid'>
+
     <form action="loadposts.php" method="post" , enctype="multipart/form-data">
         <?php
             echo "Adding posts for ".$_SESSION['username'];
         ?>
+
+
+  </div>
+
         <hr>
-        <label for="photo">Select a photo (multiple photos allowed): </label>
+        <label for="photo">Select a photo (multiple photos allowed) : </label>
         <input type="file" name="photos[]" id="photo" multiple required>
         <hr>
         <label for="caption">Enter the caption</label>
-        <textarea name="caption" id="caption" cols="30" rows="5" placeholder="Start typing here..." style="vertical-align: middle;"><?php if(isset($type_error)){echo $_POST["caption"]; unset($type_error);} ?></textarea>
+        <textarea name="caption" id="caption" cols="30" rows="5" placeholder=" Start typing here..." style="vertical-align: middle;"><?php if(isset($type_error)){echo $_POST["caption"]; unset($type_error);} ?></textarea>
         <hr>
-        <button type='submit' name='submit'> add photos</button>
+        <button class='submit_btn' type='submit' name='submit'> Add Photos</button>
     </form>
 </body>
 

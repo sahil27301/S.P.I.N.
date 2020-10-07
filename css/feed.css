@@ -7,6 +7,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #ddf3f5;
 }
 .navbar {
   background-color: cornflowerblue;
@@ -33,7 +34,7 @@ h2 {
   height: 300px;
 }
 /* body.show-nav {
-  transform: translate(200px); /* width should be the parameter value 
+  transform: translate(200px); /* width should be the parameter value
 } */
 .loader {
   opacity: 0;
@@ -101,7 +102,8 @@ h2 {
   padding: 20px;
   width: 700px;
   height: 400px;
-  background-color: #f4f4f4;
+  /*background-color: #f4f4f4;*/
+  background-color: #ddf3f5;
 }
 .posts-style ul {
   list-style: none;
@@ -286,7 +288,7 @@ a.article:hover {
 
 /* ---------------------------------------------------
     CONTENT STYLE
------------------------------------------------------ 
+-----------------------------------------------------
 
 #content {
   width: 100%;
@@ -297,7 +299,7 @@ a.article:hover {
 
 /* ---------------------------------------------------
     MEDIAQUERIES
------------------------------------------------------ 
+-----------------------------------------------------
 
 @media (max-width: 768px) {
   #sidebar {

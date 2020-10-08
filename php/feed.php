@@ -31,7 +31,7 @@ if (!(isset($_SESSION["username"]) && isset($_SESSION["user_id"]))) {
         <ul>
             <li><a href="#">My Posts</a></li>
             <li><a href="#">My Friends</a></li>
-            <li><a href="#">Pending Requests</a></li>
+            <li><a href="pendingrequests.php">Pending Requests</a></li>
             <li><a href="loadposts.php">Upload a Post!</a></li>
         </ul>
     </nav>
@@ -56,7 +56,7 @@ if (!(isset($_SESSION["username"]) && isset($_SESSION["user_id"]))) {
         </div>
         <a href="#">My Posts</a>
         <a href="#">My Friends</a>
-        <a href="#">Pending Requests</a>
+        <a href="pendingrequests.php">Pending Requests</a>
         <a href="loadposts.php">Upload a Post!</a>
         <a href="findfriends.php">Find New Friends</a>
     </div>

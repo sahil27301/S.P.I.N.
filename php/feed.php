@@ -69,7 +69,7 @@ if (!(isset($_SESSION["username"]) && isset($_SESSION["user_id"]))) {
         <button id="fetchpost">Fetch Posts</button>
     </nav>
     <div id="main">
-        <div id="postsarea"></div>
+        <div id="postsarea">z</div>
         <div id="loader" class="loader">
             <!-- loading css animation -->
             <div class="circle"></div>
@@ -89,6 +89,38 @@ if (!(isset($_SESSION["username"]) && isset($_SESSION["user_id"]))) {
                 document.getElementById("main").style.marginLeft = "0";
             }
             state = !state;
+        }
+    </script>
+    <script>
+        var state = true;
+        var likes = 0;
+
+
+
+        function likeme(event) {
+
+            var post_id = event.currentTarget.name;
+            // console.log(event.currentTarget);
+            document.getElementById(post_id).classList.toggle("liked");
+            if ($("#" + post_id).hasClass("liked")) {
+                state = true;
+            } else {
+                state = false;
+            }
+            console.log(post_id);
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/spin/php/likes.php", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            var params = "state=" + state + "&post_id=" + post_id;
+            console.log(params);
+            xhr.onload = function(event) {
+                if (this.status == 200) {
+                    console.log(this.responseText);
+
+                }
+            }
+            xhr.send(params);
+
         }
     </script>
     <script src="/spin/js/feed.js"></script>

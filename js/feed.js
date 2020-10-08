@@ -2,6 +2,7 @@
 const fetchpostsbtn = document.getElementById("fetchpost");
 const postsarea = document.getElementById("postsarea");
 const loading = document.getElementById("loader");
+
 var start = 0;
 var limit = 3;
 // var searching = false;
@@ -25,7 +26,7 @@ window.addEventListener("scroll", function () {
 //Fire first query on load
 $(document).ready(fetchpost);
 
-function fetchpost() {
+function fetchpost(event) {
   if (!more) {
     return;
   }
@@ -34,7 +35,7 @@ function fetchpost() {
   xhr.open("POST", "fetchposts.php", true);
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   var params = "start=" + start + "&limit=" + limit;
-  xhr.onload = function () {
+  xhr.onload = function (event) {
     if (this.status == 200) {
       // console.log("facebook");
       // console.log(start);
@@ -64,7 +65,6 @@ function fetchpost() {
       //     "</div>";
       // }
       postsarea.innerHTML = output;
-
       console.log(start);
       // }
     }
@@ -73,7 +73,6 @@ function fetchpost() {
   start += limit;
   // searching = false;
 }
-
 // $(".carousel").on("slid.bs.carousel", "", function () {
 //   var $this;
 //   console.log($(this).children("div.carousel-inner").children("carousel-item"));

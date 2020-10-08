@@ -17,8 +17,11 @@ $start = mysqli_real_escape_string($conn, $_POST['start']);
 $limit = mysqli_real_escape_string($conn, $_POST['limit']);
 $sql = "SELECT * from post LIMIT $limit OFFSET $start"; //We need to change this query since friends can see their friends posts only
 $result = mysqli_query($conn, $sql);
+$user_id = $_SESSION['user_id'];
+
 // $posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
 $k = $start;
+
 if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
         echo
@@ -30,6 +33,17 @@ if (mysqli_num_rows($result) > 0) {
                 "<li>";
         $sql2 = "SELECT image FROM pictures WHERE post_id=" . $row['post_id'];
         $result2 = mysqli_query($conn, $sql2);
+        $like_id = $row['post_id'];
+        $likestatus = "";
+        $query = "SELECT * from likes where user_id='$user_id' and post_id='$like_id'";
+        $queryresult = mysqli_query($conn, $query);
+        if (mysqli_num_rows($queryresult) > 0) {
+            $likestatus = "liked";
+        }
+        $query_for_counting = "SELECT COUNT(post_id) as likeCount FROM likes where post_id='$like_id'";
+        $result_for_counting = $conn->query($query_for_counting);
+        $likecount = $result_for_counting->fetch_assoc();
+        echo "Likecount:" . $likecount['likeCount'];
         echo
             '<div id="carousel' . $k . '" class="carousel slide" data-interval="false" data-wrap="false">
                 <ol class="carousel-indicators">';
@@ -73,6 +87,7 @@ if (mysqli_num_rows($result) > 0) {
         echo
             "</li>
           </ul>
+          <div id='opinion'><button class='likebtn " . $likestatus . "'id=" . $like_id . " name=" . $like_id . " value= '0' onclick='likeme(event)'><i class='fas fa-thumbs-up fa-2x'></i></button></div>
           </div>";
         $k += 1;
     }

@@ -39,7 +39,7 @@
         </div>
         <a href="#">My Posts</a>
         <a href="#">My Friends</a>
-        <a href="#">Pending Requests</a>
+        <a href="pendingrequests.php">Pending Requests</a>
         <a href="loadposts.php">Upload a Post!</a>
         <a href="findfriends.php">Find New Friends</a>
     </div>
@@ -230,4 +230,6 @@
     add logout
     close open php tags
     add col names to insert queries
+    check for acct type
+    clean autocomplete text?
  -->

@@ -105,8 +105,22 @@ h2 {
   border-radius: 20px;
   position: relative;
 }
+.deletecmtbtn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+.comment-style {
+  margin-top: 20px;
+  width: 700px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgb(105, 201, 175);
+  height: 100px;
+  position: relative;
+}
 .likebtn {
-  display: flex;
+  display: block;
   position: absolute;
   border: 0;
   bottom: 50px;
@@ -123,7 +137,15 @@ h2 {
 .posts-style ul {
   list-style: none;
 }
-
+.comment {
+  position: absolute;
+  right: 20px;
+  bottom: 50px;
+  border-radius: 10px;
+}
+.comment:focus {
+  outline: 0;
+}
 .find-top {
   margin: auto;
   margin-top: 10px;

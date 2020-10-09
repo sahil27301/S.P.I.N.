@@ -96,7 +96,6 @@ if (!(isset($_SESSION["username"]) && isset($_SESSION["user_id"]))) {
         var likes = 0;
 
 
-
         function likeme(event) {
 
             var post_id = event.currentTarget.name;
@@ -120,6 +119,14 @@ if (!(isset($_SESSION["username"]) && isset($_SESSION["user_id"]))) {
                 }
             }
             xhr.send(params);
+        }
+    </script>
+    <script>
+        function focuss(event) {
+            var post_id = event.currentTarget.name;
+            var start = event.currentTarget.value;
+            console.log(post_id);
+            window.location = "/spin/php/postfocus.php?post_id=" + post_id + "&start=" + start;
 
         }
     </script>

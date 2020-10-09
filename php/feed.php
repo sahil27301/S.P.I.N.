@@ -96,7 +96,6 @@ if (!(isset($_SESSION["username"]) && isset($_SESSION["user_id"]))) {
         var likes = 0;
 
 
-
         function likeme(event) {
 
             var post_id = event.currentTarget.name;
@@ -117,6 +116,26 @@ if (!(isset($_SESSION["username"]) && isset($_SESSION["user_id"]))) {
                 if (this.status == 200) {
                     console.log(this.responseText);
 
+                }
+            }
+            xhr.send(params);
+        }
+    </script>
+    <script>
+        function focuss(event) {
+            var post_id = event.currentTarget.name;
+            var start = event.currentTarget.value;
+            console.log(post_id);
+            // window.location = "/spin/php/postfocus.php?post_id=" + post_id + "&start=" + start;
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/spin/php/sessioncreate.php", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            var params = "start=" + start + "&post_id=" + post_id;
+            console.log(params);
+            xhr.onload = function(event) {
+                if (this.status == 200) {
+                    console.log(this.responseText);
+                    window.location = "/spin/php/postfocus.php";
                 }
             }
             xhr.send(params);

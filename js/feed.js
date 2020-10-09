@@ -2,7 +2,7 @@
 const fetchpostsbtn = document.getElementById("fetchpost");
 const postsarea = document.getElementById("postsarea");
 const loading = document.getElementById("loader");
-
+const postfocus = document.getElementsByClassName("posts-style");
 var start = 0;
 var limit = 3;
 // var searching = false;

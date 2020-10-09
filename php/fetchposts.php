@@ -87,7 +87,7 @@ if (mysqli_num_rows($result) > 0) {
         echo
             "</li>
           </ul>
-          <div id='opinion'><button class='likebtn " . $likestatus . "'id=" . $like_id . " name=" . $like_id . " value= '0' onclick='likeme(event)'><i class='fas fa-thumbs-up fa-2x'></i></button></div>
+          <div><button class='likebtn " . $likestatus . "'id=" . $like_id . " name=" . $like_id . " value= '0' onclick='likeme(event)'><i class='fas fa-thumbs-up fa-2x'></i></button><button onclick='focuss(event)' name=" . $like_id . " value=" . $start . " class='comment'>Add a comment</button></div>
           </div>";
         $k += 1;
     }

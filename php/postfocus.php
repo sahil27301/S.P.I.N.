@@ -4,6 +4,7 @@ if (!(isset($_SESSION["username"]) && isset($_SESSION["user_id"]))) {
     header("Location: login.php");
     exit();
 }
+$user_id = $_SESSION['user_id'];
 $host = "localhost";
 $user = "root";
 $password = "";
@@ -24,7 +25,7 @@ $comment_box = '';
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/spin/css/feed.css">
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
@@ -33,6 +34,12 @@ $comment_box = '';
 
 <body>
     <?php
+    if (isset($_POST['comment_id'])) {
+        $comment_id = mysqli_real_escape_string($conn, $_POST['comment_id']);
+        $sql_for_deleting_comment = "DELETE from comments where comment_id='$comment_id'";
+        $rex = mysqli_query($conn, $sql_for_deleting_comment);
+    }
+
     if (isset($_POST['submit'])) {
 
         date_default_timezone_set("Asia/Calcutta");
@@ -45,35 +52,21 @@ $comment_box = '';
         $row = $result->fetch_assoc();
         $current_time_2 = date("Ymd") . date("His");
         $comment_id = $current_time_2 . str_pad(($row['count(*)'] + 1), 4, "0", STR_PAD_LEFT);
-        echo $comment_id;
         $comment = mysqli_real_escape_string($conn, $_POST['comment']);
         $start = mysqli_real_escape_string($conn, $_POST['start']);
         $post_id = mysqli_real_escape_string($conn, $_POST['post_id']);
-        $sql = "INSERT into comments VALUES('$post_id','$comment','$comment_id')";
+        $sql = "INSERT into comments VALUES('$post_id','$comment','$comment_id','$user_id')";
         $rez = mysqli_query($conn, $sql);
     } else {
-        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
-            $url = "https://";
-        else
-            $url = "http://";
-        // Append the host(domain name, ip) to the URL.   
-        $url .= $_SERVER['HTTP_HOST'];
-
-        // Append the requested resource location to the URL   
-        $url .= $_SERVER['REQUEST_URI'];
-
-        // echo $url;
-        $parts = parse_url($url);
-        parse_str($parts['query'], $query);
-        $post_id = $query['post_id'];
-        $start = $query['start'];
+        $post_id = $_SESSION['post_id'];
+        $start = $_SESSION['start'];
     }
 
     $sql = "SELECT user_id,caption,post_id from post where post_id='$post_id'";
     $result = mysqli_query($conn, $sql);
     $sql2 = "SELECT image from pictures where post_id='$post_id";
     $res2 = mysqli_query($conn, $sql2);
-    $user_id = $_SESSION['user_id'];
+
     $k = $start;
     while ($row = mysqli_fetch_assoc($result)) {
         echo
@@ -151,21 +144,42 @@ $comment_box = '';
         <input type="hidden" name='post_id' value="<?php echo $post_id; ?>">
         <input type="hidden" name='start' value="<?php echo $start; ?>">
         <label for="comment"></label>
-        <textarea name="comment" id="comment" cols="70" rows="2"></textarea>
+        <textarea name="comment" id="comment" cols="70" rows="2" required></textarea>
         <input type="submit" name="submit">
     </form>
     <div id='comment-section'>
         <?php
-        $sql2 = "SELECT comment,comment_id from comments where post_id=$post_id";
+        $sql2 = "SELECT comment,comment_id,user_id from comments where post_id=$post_id";
         $rez2 = mysqli_query($conn, $sql2);
         if (mysqli_num_rows($rez2) > 0) {
             while ($rowz = mysqli_fetch_assoc($rez2)) {
-                // echo "<div class='comment-style'>" . $rowz['comment'] . "</div>";
-                echo "<div class='comment-style'>" . $user_id . "<br>" . $rowz['comment'] . "<button class='deletecmtbtn' value=" . $user_id . "name=" . $rowz['comment_id'] . ">Delete</button>" . "</div>";
+                $comment_id = $rowz['comment_id'];
+                $user_id_of_comment = $rowz['user_id'];
+                $deletevisible = '';
+        ?>
+                <form action="/spin/php/postfocus.php" method="post" id="<?php echo $comment_id; ?>">
+                    <input type="hidden" name='comment_id' value='<?php echo $comment_id; ?>'>
+                </form>
+        <?php
+                if ($user_id_of_comment != $_SESSION['user_id']) {
+                    $deletevisible = 'deletevisible';
+                }
+                echo "<div class='comment-style'>" . $user_id . "<br>" . $rowz['comment'] . "<button class='deletecmtbtn " . $deletevisible . "' onclick='deletecomment(event)' value=" . $user_id . " name=" . $comment_id . ">Delete</button>" . "</div>";
             }
         }
         ?>
     </div>
+    <script>
+        function deletecomment(event) {
+            var comment_id = event.currentTarget.name;
+            document.getElementById(comment_id).submit();
+        }
+    </script>
+    <script>
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+    </script>
 </body>
 
 </html>

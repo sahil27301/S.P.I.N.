@@ -110,6 +110,9 @@ h2 {
   bottom: 10px;
   right: 10px;
 }
+.deletevisible {
+  visibility: hidden;
+}
 .comment-style {
   margin-top: 20px;
   width: 700px;

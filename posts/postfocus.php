@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!(isset($_SESSION["username"]) && isset($_SESSION["user_id"]))) {
-    header("Location: login.php");
+    header("Location: /spin/login/login.php");
     exit();
 }
 $user_id = $_SESSION['user_id'];
@@ -23,7 +23,7 @@ $comment_box = '';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/spin/css/feed.css">
+    <link rel="stylesheet" href="/spin/home/feed.css">
     <link href="https://fonts.googleapis.com/css2?family=Hammersmith+One&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -41,7 +41,6 @@ $comment_box = '';
     }
 
     if (isset($_POST['submit'])) {
-
         date_default_timezone_set("Asia/Calcutta");
         $current_time = date("Ymd") . date("His");
         $current_time = $current_time . "%";
@@ -55,7 +54,7 @@ $comment_box = '';
         $comment = mysqli_real_escape_string($conn, $_POST['comment']);
         $start = mysqli_real_escape_string($conn, $_POST['start']);
         $post_id = mysqli_real_escape_string($conn, $_POST['post_id']);
-        $sql = "INSERT into comments VALUES('$post_id','$comment','$comment_id','$user_id')";
+        $sql = "INSERT into comments(post_id, comment, comment_id, user_id) VALUES('$post_id','$comment','$comment_id','$user_id')";
         $rez = mysqli_query($conn, $sql);
     } else {
         $post_id = $_SESSION['post_id'];
@@ -202,7 +201,7 @@ $comment_box = '';
                 $user_id_of_comment = $rowz['user_id'];
                 $deletevisible = '';
         ?>
-                <form action="/spin/php/postfocus.php" method="post" id="<?php echo $comment_id; ?>">
+                <form action="/spin/posts/postfocus.php" method="post" id="<?php echo $comment_id; ?>">
                     <input type="hidden" name='comment_id' value='<?php echo $comment_id; ?>'>
                 </form>
         <?php

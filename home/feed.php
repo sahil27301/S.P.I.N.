@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!(isset($_SESSION["username"]) && isset($_SESSION["user_id"]))) {
-    header("Location: login.php");
+    header("Location: /spin/login/login.php");
     exit();
 }
 $user_id = $_SESSION['user_id'];
@@ -22,7 +22,7 @@ if ($conn->connect_error)
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/spin/css/feed.css">
+    <link rel="stylesheet" href="feed.css">
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -32,34 +32,8 @@ if ($conn->connect_error)
 </head>
 
 <body>
-    <!-- <nav>
-        <div class="logo ">
-            <img src="/spin/images/defaultprofile.png" style="width:190px;height:150px;" alt="">
-        </div>
-        <ul>
-            <li><a href="#">My Posts</a></li>
-            <li><a href="#">My Friends</a></li>
-            <li><a href="pendingrequests.php">Pending Requests</a></li>
-            <li><a href="loadposts.php">Upload a Post!</a></li>
-        </ul>
-    </nav>
-    <header class="navbar sticky-top">
-        <button class="toggle navbar sticky-top" id="toggle">
-            <i class="fa fa-bars fa-2x"></i>
-        </button>
-        <h2>S.P.I.N</h2>
-        <button id="fetchpost">Fetch Posts</button>
-    </header> -->
-    <!--  -->
-    <!--  -->
-    <!-- Sidebar -->
-
-
-
-    <!--  -->
-    <!--  -->
     <?php
-    $user = $_SESSION['user_id'];
+    $user = mysqli_real_escape_string($conn, $_SESSION['user_id']);
     $sqlx = "SELECT profile_photo from user where user_id='$user'";
     $rezx = mysqli_query($conn, $sqlx);
     $row = $rezx->fetch_assoc();
@@ -96,17 +70,17 @@ if ($conn->connect_error)
         </div>
     </div>
     <script>
-        var state = false;
+        var visible = false;
 
         function toggleNav() {
-            if (!state) {
+            if (!visible) {
                 document.getElementById("mySidebar").style.width = "250px";
                 document.getElementById("main").style.marginLeft = "250px";
             } else {
                 document.getElementById("mySidebar").style.width = "0";
                 document.getElementById("main").style.marginLeft = "0";
             }
-            state = !state;
+            visible = !visible;
         }
     </script>
     <script>
@@ -117,23 +91,24 @@ if ($conn->connect_error)
         function likeme(event) {
 
             var post_id = event.currentTarget.name;
-            // console.log(event.currentTarget);
+            // console.log(event.currentTarget.children[1].innerHTML);
             document.getElementById(post_id).classList.toggle("liked");
             if ($("#" + post_id).hasClass("liked")) {
                 state = true;
+                event.currentTarget.children[1].innerHTML=parseInt(event.currentTarget.children[1].innerHTML)+1
             } else {
                 state = false;
+                event.currentTarget.children[1].innerHTML=parseInt(event.currentTarget.children[1].innerHTML)-1
             }
-            console.log(post_id);
+            // console.log(post_id);
             var xhr = new XMLHttpRequest();
-            xhr.open("POST", "/spin/php/likes.php", true);
+            xhr.open("POST", "likes.php", true);
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             var params = "state=" + state + "&post_id=" + post_id;
-            console.log(params);
+            // console.log(params);
             xhr.onload = function(event) {
                 if (this.status == 200) {
-                    console.log(this.responseText);
-                    location.reload();
+                    // console.log(this.responseText);
                 }
             }
             xhr.send(params);
@@ -146,21 +121,21 @@ if ($conn->connect_error)
             console.log(post_id);
             // window.location = "/spin/php/postfocus.php?post_id=" + post_id + "&start=" + start;
             var xhr = new XMLHttpRequest();
-            xhr.open("POST", "/spin/php/sessioncreate.php", true);
+            xhr.open("POST", "/spin/posts/sessioncreate.php", true);
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             var params = "start=" + start + "&post_id=" + post_id;
             console.log(params);
             xhr.onload = function(event) {
                 if (this.status == 200) {
                     console.log(this.responseText);
-                    window.location = "/spin/php/postfocus.php";
+                    window.location = "/spin/posts/postfocus.php";
                 }
             }
             xhr.send(params);
 
         }
     </script>
-    <script src="/spin/js/feed.js"></script>
+    <script src="feed.js"></script>
 </body>
 
 </html>

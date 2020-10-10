@@ -1,7 +1,7 @@
 <?php
     session_start();
     if (!(isset($_SESSION["username"]) && isset($_SESSION["user_id"]) && isset($_POST['mode']) && isset($_POST['id']))) {
-    header("Location: login.php");
+    header("Location: /spin/login/login.php");
     exit();
     }
     $host = "localhost";

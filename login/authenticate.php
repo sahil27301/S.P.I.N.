@@ -1,6 +1,6 @@
 <?php
     if (!(isset($_POST["username"]) && isset($_POST["password"]))) {
-        header("Location: login.php");
+        header("Location: /spin/login/login.php");
         exit();
     }
     // I've used session variables to store the username on success and error message on failure
@@ -28,7 +28,7 @@
         {
             $_SESSION["username"]=$username;
             $_SESSION["user_id"]=$row["user_id"];
-            header("Location: feed.php");
+            header("Location: /spin/home/feed.php");
             exit();
             // Redirect to the landing page
         }else {

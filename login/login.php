@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <title>S.P.I.N</title>
   <link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Montserrat&family=Open+Sans&family=Pacifico&family=Poppins&family=Sacramento&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/spin/css/styles.css">
+  <link rel="stylesheet" href="styles.css">
 
 <body>
 
@@ -76,7 +76,7 @@
 
       <h3 class='newhere'>New here?</h3>
 
-      <a class='create' href='load.php'>Create a New Account</a>
+      <a class='create' href='/spin/registration/register.php'>Create a New Account</a>
 
 
 

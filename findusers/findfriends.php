@@ -1,7 +1,7 @@
 <?php
     session_start();
     if (!(isset($_SESSION["username"]) && isset($_SESSION["user_id"]))) {
-    header("Location: login.php");
+    header("Location: /spin/login/login.php");
     exit();
     }
 ?>
@@ -17,7 +17,7 @@
     <!-- ajax -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
 
-    <link rel="stylesheet" href="/spin/css/feed.css">
+    <link rel="stylesheet" href="/spin/home/feed.css">
 
     
     
@@ -205,7 +205,7 @@
     }
     ?>
     </div>
-    <script type="text/javascript" src="/spin/js/findfriends.js"></script>
+    <script type="text/javascript" src="findfriends.js"></script>
     <script>
         var state = false;
 
@@ -229,7 +229,11 @@
     add dynamic checking for existing username and password
     add logout
     close open php tags
-    add col names to insert queries
+    add col names to insert queries********
     check for acct type
     clean autocomplete text?
+    feed is showing all posts, check followers
+    add partials for db conn, sidebar, navbar
+    remove start from postfocus
+    FIX ALL PAGE REDIRECTS
  -->

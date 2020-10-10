@@ -4,14 +4,7 @@ if (!(isset($_SESSION["username"]) && isset($_SESSION["user_id"]))) {
     header("Location: /spin/login/login.php");
     exit();
 }
-$user_id = $_SESSION['user_id'];
-$host = "localhost";
-$user = "root";
-$password = "";
-$database = "spin";
-$conn = mysqli_connect($host, $user, $password, $database);
-if ($conn->connect_error)
-    die("connection failed: " . $conn->connect_error);
+require $_SERVER['DOCUMENT_ROOT'].'/spin/partials/dbConnection.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,33 +26,9 @@ if ($conn->connect_error)
 
 <body>
     <?php
-    $user = mysqli_real_escape_string($conn, $_SESSION['user_id']);
-    $sqlx = "SELECT profile_photo from user where user_id='$user'";
-    $rezx = mysqli_query($conn, $sqlx);
-    $row = $rezx->fetch_assoc();
-
+        require $_SERVER['DOCUMENT_ROOT'].'/spin/partials/sidebar.php';
+        require $_SERVER['DOCUMENT_ROOT'].'/spin/partials/navbar.php';
     ?>
-    <div id="mySidebar" class="sidebar">
-        <div class="logo ">
-            <?php
-            echo '
-                <img src="data:image/jpeg;charset=utf8;base64,' . base64_encode($row['profile_photo']) . '" class="d-block profile_pic" height=300 />';
-            ?>
-        </div>
-        <a href="#">My Posts</a>
-        <a href="#">My Friends</a>
-        <a href="pendingrequests.php">Pending Requests</a>
-        <a href="loadposts.php">Upload a Post!</a>
-        <a href="findfriends.php">Find New Friends</a>
-    </div>
-
-    <nav class="navbar sticky-top" style="width:100%;z-index:1;">
-        <button class="openbtn" onclick="toggleNav()">
-            <i class="fa fa-bars fa-2x"></i>
-        </button>
-        <h2>S.P.I.N</h2>
-        <button id="logout">Logout</button>
-    </nav>
     <div id="main">
         <div id="postsarea"></div>
         <div id="loader" class="loader">

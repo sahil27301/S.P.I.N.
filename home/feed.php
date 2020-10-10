@@ -95,10 +95,10 @@ if ($conn->connect_error)
             document.getElementById(post_id).classList.toggle("liked");
             if ($("#" + post_id).hasClass("liked")) {
                 state = true;
-                event.currentTarget.children[1].innerHTML=parseInt(event.currentTarget.children[1].innerHTML)+1
+                event.currentTarget.children[1].innerHTML = parseInt(event.currentTarget.children[1].innerHTML) + 1
             } else {
                 state = false;
-                event.currentTarget.children[1].innerHTML=parseInt(event.currentTarget.children[1].innerHTML)-1
+                event.currentTarget.children[1].innerHTML = parseInt(event.currentTarget.children[1].innerHTML) - 1
             }
             // console.log(post_id);
             var xhr = new XMLHttpRequest();
@@ -108,7 +108,7 @@ if ($conn->connect_error)
             // console.log(params);
             xhr.onload = function(event) {
                 if (this.status == 200) {
-                    // console.log(this.responseText);
+                    console.log(this.responseText);
                 }
             }
             xhr.send(params);

@@ -44,7 +44,7 @@ function fetchpost(event) {
         more = false;
         return;
       }
-      output += this.responseText;
+      output = this.responseText;
       // else if (!searching) {
       // var posts = JSON.parse(this.responseText);
       // searching = true;
@@ -64,7 +64,7 @@ function fetchpost(event) {
       //     "</ul>" +
       //     "</div>";
       // }
-      postsarea.innerHTML = output;
+      postsarea.innerHTML += output;
       // console.log(start);
       // }
     }

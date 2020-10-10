@@ -13,6 +13,7 @@ $conn = mysqli_connect($host, $user, $password, $database);
 if ($conn->connect_error)
     die("connection failed: " . $conn->connect_error);
 $comment_box = '';
+$username_of_post = '';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -111,6 +112,7 @@ $comment_box = '';
         $sqlx = "SELECT profile_photo from user where username='$username'";
         $rezy = mysqli_query($conn, $sqlx);
         $rowxx = $rezy->fetch_assoc();
+        $username_of_post = $row['username'];
         echo
             "<div class='posts-style'>
             <div>
@@ -156,16 +158,16 @@ $comment_box = '';
                 $j += 1;
             }
             echo '">
-                <img src="data:image/jpeg;charset=utf8;base64,' . base64_encode($row2['image']) . '" class="d-block" height=300 />
+                <img src="data:image/jpeg;charset=utf8;base64,' . base64_encode($row2['image']) . '" class="d-block" height=300 style="margin:auto;"/>
                 </div>';
         }
         echo '</div>';
         if (mysqli_num_rows($result2) > 1) {
-            echo '<a class="carousel-control-prev" href="#carousel' . $k . '" role="button" data-slide="prev">
+            echo '<a class="carousel-control-prev" href="#carousel' . $k . '" role="button" data-slide="prev" style="background-color:lightblue;z-index:0">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
                 </a>
-                <a class="carousel-control-next" href="#carousel' . $k . '" role="button" data-slide="next">
+                <a class="carousel-control-next" href="#carousel' . $k . '" role="button" data-slide="next" style="background-color:lightblue;z-index:0">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="sr-only">Next</span>
                 </a>';
@@ -184,7 +186,7 @@ $comment_box = '';
     <script>
 
     </script>
-    <form action="/spin/php/postfocus.php" method="POST" id='comment-form'>
+    <form action="/spin/posts/postfocus.php" method="POST" id='comment-form'>
         <input type="hidden" name='post_id' value="<?php echo $post_id; ?>">
         <input type="hidden" name='start' value="<?php echo $start; ?>">
         <label for="comment"></label>
@@ -205,7 +207,7 @@ $comment_box = '';
                     <input type="hidden" name='comment_id' value='<?php echo $comment_id; ?>'>
                 </form>
         <?php
-                if ($user_id_of_comment != $_SESSION['user_id']) {
+                if ($user_id_of_comment != $_SESSION['user_id'] && $_SESSION['username'] != $username_of_post) {
                     $deletevisible = 'deletevisible';
                 }
                 echo "<div class='comment-style'> <b><h6>" . $rowz['username'] . "</h6></b><p>" . $rowz['comment'] . "</p><button class='deletecmtbtn " . $deletevisible . "' onclick='deletecomment(event)' value=" . $user_id . " name=" . $comment_id . ">Delete</button>" . "</div>";

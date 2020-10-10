@@ -46,6 +46,7 @@ if (mysqli_num_rows($result) > 0) {
         $queryresult = mysqli_query($conn, $query);
         if (mysqli_num_rows($queryresult) > 0) {
             $likestatus = "liked";
+            echo "AA toh rha hai";
         }
         $query_for_counting = "SELECT COUNT(post_id) as likeCount FROM likes where post_id='$like_id'";
         $result_for_counting = $conn->query($query_for_counting);
@@ -78,11 +79,11 @@ if (mysqli_num_rows($result) > 0) {
         }
         echo '</div>';
         if (mysqli_num_rows($result2) > 1) {
-            echo '<a class="carousel-control-prev" href="#carousel' . $k . '" role="button" data-slide="prev" style="background-color:lightblue">
+            echo '<a class="carousel-control-prev" href="#carousel' . $k . '" role="button" data-slide="prev" style="background-color:lightblue;z-index:0">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
                 </a>
-                <a class="carousel-control-next" href="#carousel' . $k . '" role="button" data-slide="next" style="background-color:lightblue">
+                <a class="carousel-control-next" href="#carousel' . $k . '" role="button" data-slide="next" style="background-color:lightblue;z-index:0">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="sr-only">Next</span>
                 </a>';

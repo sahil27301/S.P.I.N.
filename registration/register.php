@@ -71,7 +71,7 @@ if (isset($_POST['insert'])) {
     mysqli_stmt_close($stmt2);
     mysqli_stmt_close($stmt);
     mysqli_close($conn);
-    header("Location: login.php");
+    header("Location: /spin/login/login.php");
     exit();
   }
 }
@@ -86,7 +86,7 @@ if (isset($_POST['insert'])) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="/spin/css/registration.css">
+    <link rel="stylesheet" href="register.css">
 </head>
 
 
@@ -102,7 +102,7 @@ if (isset($_POST['insert'])) {
 
     <!--I made labels simpler and concise-->
 
-      <form action="load.php" method="post" , enctype="multipart/form-data">
+      <form action="register.php" method="post" , enctype="multipart/form-data">
           <label for="firstname">First name</label>
           <input type="text" id="firstname" name="firstname" required
             <?php if (isset($_POST["firstname"]))

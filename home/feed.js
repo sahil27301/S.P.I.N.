@@ -65,7 +65,7 @@ function fetchpost(event) {
       //     "</div>";
       // }
       postsarea.innerHTML = output;
-      console.log(start);
+      // console.log(start);
       // }
     }
   };

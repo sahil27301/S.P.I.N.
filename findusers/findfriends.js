@@ -1,6 +1,6 @@
 $(function () {
   $("#searchbox").autocomplete({
-    source: "/spin/php/findfriendsbackend.php",
+    source: "/spin/findusers/findfriendsbackend.php",
     change: function (event, ui) {
       if (ui.item == null) {
         //here is null if entered value is not match in suggestion list

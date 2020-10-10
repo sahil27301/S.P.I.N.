@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!(isset($_SESSION["username"]) && isset($_SESSION["user_id"]) && isset($_POST['start']))) {
-    header("Location: login.php");
+    header("Location: /spin/login/login.php");
     exit();
 }
 $host = "localhost";
@@ -73,16 +73,16 @@ if (mysqli_num_rows($result) > 0) {
                 $j += 1;
             }
             echo '">
-                <img src="data:image/jpeg;charset=utf8;base64,' . base64_encode($row2['image']) . '" class="d-block" height=300 />
+                <img src="data:image/jpeg;charset=utf8;base64,' . base64_encode($row2['image']) . '" class="d-block" height=300 style="margin:auto"/>
                 </div>';
         }
         echo '</div>';
         if (mysqli_num_rows($result2) > 1) {
-            echo '<a class="carousel-control-prev" href="#carousel' . $k . '" role="button" data-slide="prev">
+            echo '<a class="carousel-control-prev" href="#carousel' . $k . '" role="button" data-slide="prev" style="background-color:lightblue">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
                 </a>
-                <a class="carousel-control-next" href="#carousel' . $k . '" role="button" data-slide="next">
+                <a class="carousel-control-next" href="#carousel' . $k . '" role="button" data-slide="next" style="background-color:lightblue">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="sr-only">Next</span>
                 </a>';

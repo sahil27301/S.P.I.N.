@@ -4,6 +4,14 @@ if (!(isset($_SESSION["username"]) && isset($_SESSION["user_id"]))) {
     header("Location: login.php");
     exit();
 }
+$user_id = $_SESSION['user_id'];
+$host = "localhost";
+$user = "root";
+$password = "";
+$database = "spin";
+$conn = mysqli_connect($host, $user, $password, $database);
+if ($conn->connect_error)
+    die("connection failed: " . $conn->connect_error);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,9 +58,19 @@ if (!(isset($_SESSION["username"]) && isset($_SESSION["user_id"]))) {
 
     <!--  -->
     <!--  -->
+    <?php
+    $user = $_SESSION['user_id'];
+    $sqlx = "SELECT profile_photo from user where user_id='$user'";
+    $rezx = mysqli_query($conn, $sqlx);
+    $row = $rezx->fetch_assoc();
+
+    ?>
     <div id="mySidebar" class="sidebar">
         <div class="logo ">
-            <img src="/spin/images/defaultprofile.png" style="width:190px;height:150px;" alt="">
+            <?php
+            echo '
+                <img src="data:image/jpeg;charset=utf8;base64,' . base64_encode($row['profile_photo']) . '" class="d-block profile_pic" height=300 />';
+            ?>
         </div>
         <a href="#">My Posts</a>
         <a href="#">My Friends</a>
@@ -69,7 +87,7 @@ if (!(isset($_SESSION["username"]) && isset($_SESSION["user_id"]))) {
         <button id="logout">Logout</button>
     </nav>
     <div id="main">
-        <div id="postsarea">z</div>
+        <div id="postsarea"></div>
         <div id="loader" class="loader">
             <!-- loading css animation -->
             <div class="circle"></div>
@@ -115,7 +133,7 @@ if (!(isset($_SESSION["username"]) && isset($_SESSION["user_id"]))) {
             xhr.onload = function(event) {
                 if (this.status == 200) {
                     console.log(this.responseText);
-
+                    location.reload();
                 }
             }
             xhr.send(params);

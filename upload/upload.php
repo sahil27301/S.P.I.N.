@@ -4,14 +4,7 @@ if (!(isset($_SESSION["username"]) && isset($_SESSION["user_id"]))) {
     header("Location: /spin/login/login.php");
     exit();
 }
-$host = "localhost";
-$user = "root";
-$password = "";
-$database = "spin";
-$conn = mysqli_connect($host, $user, $password, $database);
-if ($conn->connect_error) {
-    die("connection failed: " . $conn->connect_error);
-}
+require $_SERVER['DOCUMENT_ROOT'].'/spin/partials/dbConnection.php';
 if (isset($_POST['submit'])) {
     $stmt = $conn->prepare("insert into post values( ?, ?, ?, ?)");
     $stmt->bind_param("ssss", $post_id, $user_id, $upload_time, $caption);
@@ -61,16 +54,28 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="utf-8">
     <title>load posts</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Montserrat&family=Open+Sans&family=Pacifico&family=Poppins&family=Sacramento&display=swap" rel="stylesheet">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/spin/home/feed.css">
     <link rel="stylesheet" href="upload.css">
+    <style>
+        .profile_pic {
+            height:25%;
+        }
+    </style>
 </head>
 
 <body>
-
+    <?php
+        require $_SERVER['DOCUMENT_ROOT'].'/spin/partials/sidebar.php';
+        require $_SERVER['DOCUMENT_ROOT'].'/spin/partials/navbar.php';
+    ?>
+    <div id="main">
   <div class = 'top'>
 
     <h1 class='title'>S.P.I.N</h1>
@@ -98,6 +103,21 @@ if (isset($_POST['submit'])) {
         <hr>
         <button class='submit_btn' type='submit' name='submit'> Add Photos</button>
     </form>
+    </div>
+    <script>
+        var visible = false;
+
+        function toggleNav() {
+            if (!visible) {
+                document.getElementById("mySidebar").style.width = "250px";
+                document.getElementById("main").style.marginLeft = "250px";
+            } else {
+                document.getElementById("mySidebar").style.width = "0";
+                document.getElementById("main").style.marginLeft = "0";
+            }
+            visible = !visible;
+        }
+    </script>
 </body>
 
 </html>

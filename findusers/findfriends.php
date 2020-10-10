@@ -4,6 +4,7 @@
     header("Location: /spin/login/login.php");
     exit();
     }
+    require $_SERVER['DOCUMENT_ROOT'].'/spin/partials/dbConnection.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,24 +34,10 @@
     <title>Find Friends</title>
 </head>
 <body>
-    <div id="mySidebar" class="sidebar">
-        <div class="logo ">
-            <img src="/spin/images/defaultprofile.png" style="width:190px;height:150px;" alt="">
-        </div>
-        <a href="#">My Posts</a>
-        <a href="#">My Friends</a>
-        <a href="pendingrequests.php">Pending Requests</a>
-        <a href="loadposts.php">Upload a Post!</a>
-        <a href="findfriends.php">Find New Friends</a>
-    </div>
-
-    <nav class="navbar sticky-top" style="width:100%;z-index:1;">
-        <button class="openbtn" onclick="toggleNav()">
-            <i class="fa fa-bars fa-2x"></i>
-        </button>
-        <h2>S.P.I.N</h2>
-        <button id="logout">Logout</button>
-    </nav>
+    <?php
+        require $_SERVER['DOCUMENT_ROOT'].'/spin/partials/sidebar.php';
+        require $_SERVER['DOCUMENT_ROOT'].'/spin/partials/navbar.php';
+    ?>
     <div id="main">
         <div class="find-top">
     <h2 style='color:black;'>Search for other users!</h2>
@@ -236,4 +223,5 @@
     add partials for db conn, sidebar, navbar
     remove start from postfocus
     FIX ALL PAGE REDIRECTS
+    postfocus bracket matching
  -->

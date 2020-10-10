@@ -4,6 +4,7 @@
     header("Location: /spin/login/login.php");
     exit();
     }
+    require $_SERVER['DOCUMENT_ROOT'].'/spin/partials/dbConnection.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,37 +36,16 @@
 <body>
 
 
-    <div id="mySidebar" class="sidebar">
-        <div class="logo ">
-            <img src="/spin/images/defaultprofile.png" style="width:190px;height:150px;" alt="">
-        </div>
-        <a href="#">My Posts</a>
-        <a href="#">My Friends</a>
-        <a href="pendingrequests.php">Pending Requests</a>
-        <a href="loadposts.php">Upload a Post!</a>
-        <a href="findfriends.php">Find New Friends</a>
-    </div>
-
-
-    <nav class="navbar sticky-top" style="width:100%;z-index:1;">
-        <button class="openbtn" onclick="toggleNav()">
-            <i class="fa fa-bars fa-2x"></i>
-        </button>
-        <h2>S.P.I.N</h2>
-        <button id="logout">Logout</button>
-    </nav>
+    
+    <?php
+        require $_SERVER['DOCUMENT_ROOT'].'/spin/partials/sidebar.php';
+        require $_SERVER['DOCUMENT_ROOT'].'/spin/partials/navbar.php';
+    ?>
 
 
     <div id="main">
         <div class="container2">
             <?php
-                $host = "localhost";
-                $user = "root";
-                $password = "";
-                $database = "spin";
-                $conn = mysqli_connect($host, $user, $password, $database);
-                if ($conn->connect_error)
-                    die("connection failed: " . $conn->connect_error);
                 $stmt = $conn->prepare("select * from follow_requests, user where user_id_2 = ? and user.user_id=follow_requests.user_id_1");
                 $stmt->bind_param("s", $user_id);
                 $user_id = $_SESSION['user_id'];

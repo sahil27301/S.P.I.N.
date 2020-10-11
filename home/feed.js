@@ -31,7 +31,10 @@ function fetchpost(event) {
   var params = "start=" + start + "&limit=" + limit;
   xhr.onload = function (event) {
     if (this.status == 200) {
+      // console.log(this.responseText);
       if (this.responseText == "Reached") {
+        postsarea.innerHTML +=
+          "<a href='/spin/findusers/findfriends.php'><div class='end'>Click Here To Find New Friends</div></a>";
         more = false;
         return;
       }

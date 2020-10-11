@@ -95,6 +95,22 @@ h2 {
 .sidebar .logo img {
   border-radius: 20%;
 }
+
+.end {
+  margin: auto;
+  margin-top: 10px;
+  padding: 20px;
+  width: 30%;
+  /* min-height: 500px; */
+  background-color: #f4f4f4;
+  border-radius: 20px;
+  position: relative;
+  text-align: center;
+}
+.end:hover {
+  color: #f4f4f4;
+  background-color: cornflowerblue;
+}
 .posts-style {
   margin: auto;
   margin-top: 10px;

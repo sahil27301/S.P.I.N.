@@ -106,7 +106,7 @@ $username_of_post = '';
         }
     </script>
     <?php
-    $k = $start;
+    $k = 0;
     while ($row = mysqli_fetch_assoc($result)) {
         $username = $row['username'];
         $sqlx = "SELECT profile_photo from user where username='$username'";
@@ -178,7 +178,7 @@ $username_of_post = '';
         echo
             "</li>
           </ul>
-          <div><button class='likebtn " . $likestatus . "'id=" . $like_id . " name=" . $like_id . " value= '0' onclick='likeme(event)'><i class='fas fa-thumbs-up fa-2x'></i><h5>" . $likecount['likeCount'] . "</h5></button></div>
+          <div class='postfocus-postfoot-div'><button class='likebtn " . $likestatus . "'id=" . $like_id . " name=" . $like_id . " value= '0' onclick='likeme(event)'><i class='fas fa-thumbs-up fa-2x'></i><h5>" . $likecount['likeCount'] . "</h5></button><button type='button' class='btn btn-info btn-lg modalbtn' onclick='modalclicked()' value=" . $post_id . " data-toggle='modal' data-target='#myModal'>Who liked it?</button></div>
           </div>";
         $k += 1;
     }
@@ -219,6 +219,79 @@ $username_of_post = '';
         function deletecomment(event) {
             var comment_id = event.currentTarget.name;
             document.getElementById(comment_id).submit();
+        }
+    </script>
+    <script>
+        function modalclicked() {
+            var post_id = event.currentTarget.value;
+            $('.modal').on('show.bs.modal', function() {
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/spin/posts/wholiked.php", true);
+                console.log(post_id);
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                var params = "post_id=" + post_id;
+                // console.log(params);
+                xhr.onload = function() {
+                    if (this.status == 200) {
+
+                        $(".modal-body").html(this.responseText);
+                    }
+                }
+                xhr.send(params);
+            });
+
+        }
+    </script>
+    <div id="myModal" class="modal fade " role="dialog">
+        <!--Adding modal for who liked-->
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content ">
+                <div class="modal-header">
+                    Liked by
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <!-- <h4 class="modal-title">Modal Header</h4> -->
+                </div>
+                <div class="modal-body ">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        var state = true;
+        var likes = 0;
+
+
+        function likeme(event) {
+
+            var post_id = event.currentTarget.name;
+            // console.log(event.currentTarget.children[1].innerHTML);
+            document.getElementById(post_id).classList.toggle("liked");
+            if ($("#" + post_id).hasClass("liked")) {
+                state = true;
+                event.currentTarget.children[1].innerHTML = parseInt(event.currentTarget.children[1].innerHTML) + 1
+            } else {
+                state = false;
+                event.currentTarget.children[1].innerHTML = parseInt(event.currentTarget.children[1].innerHTML) - 1
+            }
+            // console.log(post_id);
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/spin/home/likes.php", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            var params = "state=" + state + "&post_id=" + post_id;
+            // console.log(params);
+            xhr.onload = function(event) {
+                if (this.status == 200) {
+                    console.log(this.responseText);
+                }
+            }
+            xhr.send(params);
         }
     </script>
     <script>

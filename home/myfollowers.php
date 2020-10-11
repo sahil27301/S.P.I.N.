@@ -32,6 +32,7 @@ if ($conn->connect_error)
 </head>
 
 <body>
+
     <?php
     $user = mysqli_real_escape_string($conn, $_SESSION['user_id']);
     $sqlx = "SELECT profile_photo from user where user_id='$user'";
@@ -60,8 +61,10 @@ if ($conn->connect_error)
         <h2>S.P.I.N</h2>
         <button id="logout">Logout</button>
     </nav>
+    <br>
+    <h1>My Followers</h1>
     <div id="main">
-        <div id="postsarea"></div>
+        <div id="myfollowersarea"></div>
         <div id="loader" class="loader">
             <!-- loading css animation -->
             <div class="circle"></div>
@@ -136,7 +139,7 @@ if ($conn->connect_error)
 
         }
     </script>
-    <script src="feed.js"></script>
+    <script src="myfollowers.js"></script>
 </body>
 
 </html>

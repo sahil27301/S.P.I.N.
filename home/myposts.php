@@ -60,8 +60,9 @@ if ($conn->connect_error)
         <h2>S.P.I.N</h2>
         <button id="logout">Logout</button>
     </nav>
+    <h1>My Posts</h1>
     <div id="main">
-        <div id="postsarea"></div>
+        <div id="mypostsarea"></div>
         <div id="loader" class="loader">
             <!-- loading css animation -->
             <div class="circle"></div>
@@ -136,7 +137,7 @@ if ($conn->connect_error)
 
         }
     </script>
-    <script src="feed.js"></script>
+    <script src="myposts.js"></script>
 </body>
 
 </html>

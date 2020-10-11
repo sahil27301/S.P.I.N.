@@ -1,9 +1,6 @@
 <?php
 session_start();
-if (!(isset($_SESSION["username"]) && isset($_SESSION["user_id"]) && isset($_POST['start']))) {
-    header("Location: /spin/login/login.php");
-    exit();
-}
+
 $host = "localhost";
 $user = "root";
 $password = "";
@@ -11,16 +8,17 @@ $database = "spin";
 $conn = mysqli_connect($host, $user, $password, $database);
 if ($conn->connect_error)
     die("connection failed: " . $conn->connect_error);
-
-
+if (isset($_POST['start']) && isset($_POST['limit'])) {
+    $start = mysqli_real_escape_string($conn, $_POST['start']);
+    $limit = mysqli_real_escape_string($conn, $_POST['limit']);
+}
 $start = mysqli_real_escape_string($conn, $_POST['start']);
 $limit = mysqli_real_escape_string($conn, $_POST['limit']);
-$sql = "SELECT post_id,username,caption from post natural join user LIMIT $limit OFFSET $start"; //We need to change this query since friends can see their friends posts only
-$result = mysqli_query($conn, $sql);
 $user_id = $_SESSION['user_id'];
+$sql = "SELECT post_id,username,caption from post natural join user where user_id='$user_id' LIMIT $limit OFFSET $start"; //We need to change this query since friends can see their friends posts only
+$result = mysqli_query($conn, $sql);
 
-// $posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
-$k = $start;
+$k = 0;
 
 if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
@@ -93,7 +91,7 @@ if (mysqli_num_rows($result) > 0) {
         echo
             "</li>
           </ul>
-          <div><button class='likebtn " . $likestatus . "'id=" . $like_id . " name=" . $like_id . " value= '0' onclick='likeme(event)'><i class='fas fa-thumbs-up fa-2x'></i> <h5>" . $likecount['likeCount'] . "</h5></button><button onclick='focuss(event)' name=" . $like_id . " value=" . $start . " class='comment btn btn-success'>Add a comment</button></div>
+          <div><button class='likebtn " . $likestatus . "'id=" . $like_id . " name=" . $like_id . " value= '0' onclick='likeme(event)'><i class='fas fa-thumbs-up fa-2x'></i> <h5>" . $likecount['likeCount'] . "</h5></button><button onclick='focuss(event)' name=" . $like_id . " class='comment btn btn-success'>See comments</button></div>
           </div>";
         $k += 1;
     }

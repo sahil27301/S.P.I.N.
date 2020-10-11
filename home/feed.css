@@ -110,7 +110,7 @@ h2 {
   margin-top: 10px;
   padding: 20px;
   width: 700px;
-  min-height: 200px;
+  min-height: 300px;
   background-color: #f4f4f4;
   border-radius: 20px;
   position: relative;
@@ -132,8 +132,8 @@ h2 {
   color: rgb(209, 225, 222);
 }
 .profile_pic {
-  width: 75%;
-  height: 75%;
+  width: 50%;
+  height: 50%;
 }
 .profile_pic_in_posts {
   width: 75px;
@@ -142,9 +142,9 @@ h2 {
   margin-right: 40px;
   float: left;
 }
-.post-username,
+/* .post-username,
 .post-caption {
-}
+} */
 .deletevisible {
   visibility: hidden;
 }
@@ -552,4 +552,11 @@ input[type="submit"] {
   text-align: center;
   margin: 50px auto;
   width: 450px;
+}
+a {
+  color: black;
+}
+a:hover {
+  text-decoration: none;
+  color: black;
 }

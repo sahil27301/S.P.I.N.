@@ -1,6 +1,6 @@
 // const toggle = document.getElementById("toggle");
 const fetchpostsbtn = document.getElementById("fetchpost");
-const postsarea = document.getElementById("mypostsarea");
+const postsarea = document.getElementById("myfollowersarea");
 const loading = document.getElementById("loader");
 const postfocus = document.getElementsByClassName("posts-style");
 var start = 0;
@@ -32,7 +32,7 @@ function fetchpost(event) {
   }
   var xhr = new XMLHttpRequest();
   // console.log("hell");
-  xhr.open("POST", "fetchmyposts.php", true);
+  xhr.open("POST", "fetchfollowing.php", true);
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   var params = "start=" + start + "&limit=" + limit;
   xhr.onload = function (event) {
@@ -45,10 +45,31 @@ function fetchpost(event) {
         return;
       }
       output = this.responseText;
-
+      // else if (!searching) {
+      // var posts = JSON.parse(this.responseText);
+      // searching = true;
+      // for (i in posts) {
+      //   output +=
+      //     '<div class="posts-style">' +
+      //     "<ul>" +
+      //     "<li>" +
+      //     posts[i].post_id +
+      //     "</li>" +
+      //     "<li>" +
+      //     posts[i].user_id +
+      //     "</li>" +
+      //     "<li>" +
+      //     posts[i].caption +
+      //     "</li>" +
+      //     "</ul>" +
+      //     "</div>";
+      // }
       postsarea.innerHTML += output;
+      // console.log(start);
+      // }
     }
   };
   xhr.send(params);
   start += limit;
+  // searching = false;
 }

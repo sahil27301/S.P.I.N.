@@ -2,14 +2,7 @@
 $errors=array('username' =>'','email'=>'');
 if (isset($_POST['insert'])) {
 
-    $host = "localhost";
-    $user = "root";
-    $password = "";
-    $database = "spin";
-    $conn = mysqli_connect($host, $user, $password, $database);
-    if ($conn->connect_error) {
-        die("connection failed: " . $conn->connect_error);
-    }
+    require $_SERVER['DOCUMENT_ROOT'].'/spin/partials/dbConnection.php';
     // Check if the username is unique
     $username_entered= mysqli_real_escape_string($conn,$_POST['username']);
     $sql= "SELECT username from user where username='$username_entered'";
@@ -102,7 +95,7 @@ if (isset($_POST['insert'])) {
 
     <!--I made labels simpler and concise-->
 
-      <form action="register.php" method="post" , enctype="multipart/form-data">
+      <form action="register.php" method="post" , enctype="multipart/form-data" autocomplete="off">
           <label for="firstname">First name</label>
           <input type="text" id="firstname" name="firstname" required
             <?php if (isset($_POST["firstname"]))
@@ -152,6 +145,7 @@ if (isset($_POST['insert'])) {
                 echo "value=".$_POST["username"];
             }?>
           >
+          <div id='usernameError' class='btn-danger' style='width:30%; margin:10px auto;border-radius:10px ;padding:10px'>Username already exists!</div>
        	  <div class=""><?php echo $errors['username'];?></div>   <!--Outputs error-->
           <hr>
           <label for="password">Password</label>
@@ -164,6 +158,7 @@ if (isset($_POST['insert'])) {
                 echo "value=".$_POST["email"];
             }?>
           >
+          <div id='emailError' class='btn-danger' style='width:30%; margin:10px auto;border-radius:10px ;padding:10px'>Email already exists!</div>
           <div class=""><?php echo $errors['email'];?></div>   <!--Outputs error-->
           <hr>
           <label for="profile_photo">Select an image file</label>
@@ -177,6 +172,8 @@ if (isset($_POST['insert'])) {
     </form>
 </body>
 <script>
+    $("#usernameError").hide();
+    $("#emailError").hide();
     $(document).ready(function() {
         $("#insert").click(function() {
             var image_name = $("#profile_photo").val();
@@ -190,6 +187,50 @@ if (isset($_POST['insert'])) {
                 return false;
             }
         });
+    });
+    $("#username").on("paste input", function(){
+      // console.log($(this).val());
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "username.php", true);
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      params='username='+$(this).val();
+      xhr.onload = function (event){
+        if (this.status == 200){
+          // console.log(this.responseText);
+          if (this.responseText == 'exists')
+          {
+            $("#insert").prop('disabled',true);
+            $('#usernameError').show();
+          }else
+          {
+            $("#insert").prop('disabled',false);
+            $('#usernameError').hide();
+          }
+        }
+      }
+      xhr.send(params);
+    });
+    $("#email").on("paste input", function(){
+      // console.log($(this).val());
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "email.php", true);
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      params='email='+$(this).val();
+      xhr.onload = function (event){
+        if (this.status == 200){
+          // console.log(this.responseText);
+          if (this.responseText == 'exists')
+          {
+            $("#insert").prop('disabled',true);
+            $('#emailError').show();
+          }else
+          {
+            $("#insert").prop('disabled',false);
+            $('#emailError').hide();
+          }
+        }
+      }
+      xhr.send(params);
     });
 </script>
 

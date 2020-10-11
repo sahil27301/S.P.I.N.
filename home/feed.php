@@ -61,6 +61,8 @@ require $_SERVER['DOCUMENT_ROOT'].'/spin/partials/dbConnection.php';
 
             var post_id = event.currentTarget.name;
             // console.log(event.currentTarget.children[1].innerHTML);
+            var like_count=event.currentTarget.children[1]
+            // console.log('actually '+like_count);
             document.getElementById(post_id).classList.toggle("liked");
             if ($("#" + post_id).hasClass("liked")) {
                 state = true;
@@ -71,14 +73,20 @@ require $_SERVER['DOCUMENT_ROOT'].'/spin/partials/dbConnection.php';
             }
             // console.log(post_id);
             var xhr = new XMLHttpRequest();
-            xhr.open("POST", "likes.php", true);
+            xhr.open("POST", "/spin/home/likes.php", true);
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             var params = "state=" + state + "&post_id=" + post_id;
             // console.log(params);
             xhr.onload = function(event) {
                 if (this.status == 200) {
 
-                    console.log(this.responseText);
+                    // console.log(this.responseText);
+                    if (this.responseText=="shaana") {
+                        alert("chal hatt lombdi");
+                        // console.log(like_count);
+                        like_count.innerHTML = parseInt(like_count.innerHTML) - 1
+                        // console.log(like_count);
+                    }
                 }
             }
             xhr.send(params);

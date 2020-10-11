@@ -52,13 +52,6 @@
 
     <?php
         if (isset($_POST['submit']) && $_POST['searchbox']!='' ) {
-        $host = "localhost";
-        $user = "root";
-        $password = "";
-        $database = "spin";
-        $conn = mysqli_connect($host, $user, $password, $database);
-        if ($conn->connect_error)
-            die("connection failed: " . $conn->connect_error);
         $stmt = $conn->prepare("select * from  user where username=?");
         $stmt->bind_param("s", $username);
         $username = $_POST['searchbox'];
@@ -66,11 +59,11 @@
         $result = $stmt->get_result();
         if (mysqli_num_rows($result)) {
             $row = $result->fetch_assoc();
-            echo '
+            echo '<a href="/spin/users/userprofile.php?user_profile='.$row["user_id"].'">
                 <h1>'.$row['username'].'</h1>
                 <h3>'.$row['firstname'].' '.$row['lastname'].'</h3>
-                <img src="data:image/jpeg;charset=utf8;base64,' . base64_encode($row['profile_photo']) . '" class="d-block" height=300 />
-                <p>'.$row['bio'].'</p>';
+                <img src="data:image/jpeg;charset=utf8;base64,' . base64_encode($row['profile_photo']) . '" class="d-block" height=300 style="margin:auto;" />
+                <p>'.$row['bio'].'</p></a>';
             $stmt2 = $conn->prepare("select * from  followers where user_id_1 = ? and user_id_2=?");
             $stmt2->bind_param("ss", $user_id_1, $user_id_2);
             $user_id_1 = $_SESSION['user_id'];
@@ -79,65 +72,6 @@
             $result2 = $stmt2->get_result();
             if (mysqli_num_rows($result2)) {
                 echo "<p>You already follow ".$row['firstname']."!</p></div>";
-                $stmt3 = $conn->prepare("select * from  post where user_id = ?");
-                $stmt3->bind_param("s", $user_id_2);
-                $stmt3->execute();
-                $result3=$stmt3->get_result();
-                $k=0;
-                while ($row3 = $result3->fetch_assoc()) {
-                    echo
-                        "<div class='posts-style'>
-                    <ul>
-                    <li>" . $row3['post_id'] . "</li>
-                    <li>" . $row3['user_id'] . "</li>
-                    <li>" . $row3['caption'] . "</li>" .
-                            "<li>";
-                    $sql5 = "SELECT image FROM pictures WHERE post_id=" . $row3['post_id'];
-                    $result5 = mysqli_query($conn, $sql5);
-                    echo
-                        '<div id="carousel' . $k . '" class="carousel slide" data-interval="false" data-wrap="false">
-                            <ol class="carousel-indicators">';
-                    if (mysqli_num_rows($result5) > 1) {
-                        for ($i = 0; $i < mysqli_num_rows($result5); $i++) {
-                            echo "<li data-target='#carousel$k' data-slide-to='" . ($i + 1) . "'";
-                            if ($i == 0) {
-                                echo " class='active'";
-                            }
-                            echo "></li>";
-                        }
-                    }
-                    echo
-                        '</ol>
-                        <div class="carousel-inner">';
-                    $j = 0;
-                    while ($row5 = mysqli_fetch_assoc($result5)) {
-                        echo '<div class="carousel-item';
-                        if ($j == 0) {
-                            echo " active";
-                            $j += 1;
-                        }
-                        echo '">
-                            <img src="data:image/jpeg;charset=utf8;base64,' . base64_encode($row5['image']) . '" class="d-block" height=300 />
-                            </div>';
-                    }
-                    echo '</div>';
-                    if (mysqli_num_rows($result5) > 1) {
-                        echo '<a class="carousel-control-prev" href="#carousel' . $k . '" role="button" data-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="carousel-control-next" href="#carousel' . $k . '" role="button" data-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
-                            </a>';
-                    }
-
-                    echo '</div>
-                        </li>
-                        </ul>
-                        </div><hr>';
-                    $k+=1;
-                }
             }else
             {
                 $stmt4 = $conn->prepare("select * from  follow_requests where user_id_1 = ? and user_id_2=?");
@@ -147,43 +81,56 @@
                 if (mysqli_num_rows($result4)) {
                     echo "<button id = 'requestButton' class='requested'>Cancel Request</button>";
                 }else {
-                    echo "<button id = 'requestButton'>Send request</button>";
+                    echo "<button id = 'requestButton'>Send Request</button>";
                 }
                 echo "</div>";
                 ?>
                     <script>
-                        if ($('#requestButton').text() == 'Cancel Request') {
-                            $('#requestButton').css("background-color", "lightgreen")
+                    reload_required=false;
+                    if ($('#requestButton').text() == 'Cancel Request' || $('#requestButton').text() == 'Unfollow') {
+                        $('#requestButton').css("background-color", "lightgreen")
+                    }
+                    $('#requestButton').click(function(){
+                        let params="code=";
+                        if ($(this).text() == 'Cancel Request') {
+                            $(this).css("background-color", "green")
+                            $(this).text("Send Request");
+                            params+="remove"
+                        }else if ($(this).text() == 'Send Request')
+                        {
+                            $(this).css("background-color", "lightgreen")
+                            $(this).text("Cancel Request");
+                            params+="add"
                         }
-                        $('#requestButton').click(function(){
-                            let params="code=";
-                            if ($(this).text() == 'Cancel Request') {
-                                $(this).css("background-color", "green")
-                                $(this).text("Send request");
-                                params+="remove"
-                            }else
-                            {
-                                $(this).css("background-color", "lightgreen")
-                                $(this).text("Cancel Request");
-                                params+="add"
-                            }
-                            params+="&target="+<?php echo $user_id_2?>
+                        else
+                        {
+                            $(this).css("background-color", "green")
+                            $(this).text("Send Request");
+                            params+="unfollow"
+                            reload_required=true;
+                        }
+                        params+="&target="+<?php echo $user_id_2?>
 
-                            const xhr = new XMLHttpRequest();
-                            xhr.open("POST", "managerequests.php", true);
-                            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                            
-                            xhr.onload = function () {
-                                if (this.status == 200) {
+                        const xhr = new XMLHttpRequest();
+                        xhr.open("POST", "/spin/findusers/managerequests.php", true);
+                        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                        xhr.onload = function () {
+                            if (this.status == 200) {
                                 // console.log(this.responseText);
+                                if (this.responseText=='open'){
+                                    $("#requestButton").css("background-color", "lightgreen")
+                                    $("#requestButton").text("Unfollow");
                                 }
-                            };
+                            }
+                        };
+                        xhr.send(params);
+                        if (reload_required)
+                        {
+                            location.reload();
+                        }
 
-
-                            xhr.send(params);
-
-                        });
-                    </script>
+                    });
+                </script>
                 <?php
             }
         }else {
@@ -224,4 +171,8 @@
     remove start from postfocus
     FIX ALL PAGE REDIRECTS
     postfocus bracket matching
+    check username email live on registration
+    add partials for sessions
+    add forgot password
+    touch events
  -->

@@ -18,7 +18,7 @@ $user_id = $_SESSION['user_id'];
 $sql = "SELECT post_id,username,caption from post natural join user where user_id='$user_id' LIMIT $limit OFFSET $start"; //We need to change this query since friends can see their friends posts only
 $result = mysqli_query($conn, $sql);
 
-$k = 0;
+$k = $start;
 
 if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
@@ -91,7 +91,7 @@ if (mysqli_num_rows($result) > 0) {
         echo
             "</li>
           </ul>
-          <div><button class='likebtn " . $likestatus . "'id=" . $like_id . " name=" . $like_id . " value= '0' onclick='likeme(event)'><i class='fas fa-thumbs-up fa-2x'></i> <h5>" . $likecount['likeCount'] . "</h5></button><button onclick='focuss(event)' name=" . $like_id . " class='comment btn btn-success'>See comments</button></div>
+          <div><button class='likebtn " . $likestatus . "'id=" . $like_id . " name=" . $like_id . " value= '0' onclick='likeme(event)'><i class='fas fa-thumbs-up fa-2x'></i> <h5>" . $likecount['likeCount'] . "</h5></button><button onclick='focuss(event)' name=" . $like_id . " class='comment btn btn-success'>View comments</button></div>
           </div>";
         $k += 1;
     }

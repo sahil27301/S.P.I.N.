@@ -78,7 +78,7 @@ if (isset($_POST['submit'])) {
     <div id="main">
   <div class = 'top'>
 
-    <h1 class='title'>S.P.I.N</h1>
+    <!-- <h1 class='title'>S.P.I.N</h1> -->
     <h3>Sardar Patel Institutional Network</h3>
     <h1>Make a Post!</h1>
 
@@ -86,7 +86,7 @@ if (isset($_POST['submit'])) {
 
   <div class = 'mid'>
 
-    <form action="loadposts.php" method="post" , enctype="multipart/form-data">
+    <form action="upload.php" method="post" , enctype="multipart/form-data">
         <?php
             echo "Adding posts for ".$_SESSION['username'];
         ?>

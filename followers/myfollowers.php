@@ -5,13 +5,7 @@ if (!(isset($_SESSION["username"]) && isset($_SESSION["user_id"]))) {
     exit();
 }
 $user_id = $_SESSION['user_id'];
-$host = "localhost";
-$user = "root";
-$password = "";
-$database = "spin";
-$conn = mysqli_connect($host, $user, $password, $database);
-if ($conn->connect_error)
-    die("connection failed: " . $conn->connect_error);
+require $_SERVER['DOCUMENT_ROOT'].'/spin/partials/dbConnection.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +16,7 @@ if ($conn->connect_error)
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="feed.css">
+    <link rel="stylesheet" href="/spin/home/feed.css">
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -32,37 +26,12 @@ if ($conn->connect_error)
 </head>
 
 <body>
-
     <?php
-    $user = mysqli_real_escape_string($conn, $_SESSION['user_id']);
-    $sqlx = "SELECT profile_photo from user where user_id='$user'";
-    $rezx = mysqli_query($conn, $sqlx);
-    $row = $rezx->fetch_assoc();
-
+        require $_SERVER['DOCUMENT_ROOT'].'/spin/partials/sidebar.php';
+        require $_SERVER['DOCUMENT_ROOT'].'/spin/partials/navbar.php';
     ?>
-    <div id="mySidebar" class="sidebar">
-        <div class="logo ">
-            <?php
-            echo '
-                <img src="data:image/jpeg;charset=utf8;base64,' . base64_encode($row['profile_photo']) . '" class="d-block profile_pic" height=300 />';
-            ?>
-        </div>
-        <a href="#">My Posts</a>
-        <a href="#">My Friends</a>
-        <a href="pendingrequests.php">Pending Requests</a>
-        <a href="loadposts.php">Upload a Post!</a>
-        <a href="findfriends.php">Find New Friends</a>
-    </div>
-
-    <nav class="navbar sticky-top" style="width:100%;z-index:1;">
-        <button class="openbtn" onclick="toggleNav()">
-            <i class="fa fa-bars fa-2x"></i>
-        </button>
-        <h2>S.P.I.N</h2>
-        <button id="logout">Logout</button>
-    </nav>
-    <br>
-    <h1>My Followers</h1>
+        <br>
+        <h1>My Followers</h1>
     <div id="main">
         <div id="myfollowersarea"></div>
         <div id="loader" class="loader">
@@ -86,7 +55,7 @@ if ($conn->connect_error)
             visible = !visible;
         }
     </script>
-    <script>
+    <!-- <script>
         var state = true;
         var likes = 0;
 
@@ -117,8 +86,8 @@ if ($conn->connect_error)
             }
             xhr.send(params);
         }
-    </script>
-    <script>
+    </script> -->
+    <!-- <script>
         function focuss(event) {
             var post_id = event.currentTarget.name;
             var start = event.currentTarget.value;
@@ -138,7 +107,7 @@ if ($conn->connect_error)
             xhr.send(params);
 
         }
-    </script>
+    </script> -->
     <script src="myfollowers.js"></script>
 </body>
 

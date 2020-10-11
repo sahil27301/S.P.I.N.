@@ -1,20 +1,23 @@
 <?php
 session_start();
-if (!(isset($_SESSION["username"]) && isset($_SESSION["user_id"]) && isset($_POST['start']))) {
-    header("Location: /spin/login/login.php");
-    exit();
+
+$host = "localhost";
+$user = "root";
+$password = "";
+$database = "spin";
+$conn = mysqli_connect($host, $user, $password, $database);
+if ($conn->connect_error)
+    die("connection failed: " . $conn->connect_error);
+if (isset($_POST['start']) && isset($_POST['limit'])) {
+    $start = mysqli_real_escape_string($conn, $_POST['start']);
+    $limit = mysqli_real_escape_string($conn, $_POST['limit']);
 }
-require $_SERVER['DOCUMENT_ROOT'].'/spin/partials/dbConnection.php';
-
-
 $start = mysqli_real_escape_string($conn, $_POST['start']);
 $limit = mysqli_real_escape_string($conn, $_POST['limit']);
-$user_id = mysqli_real_escape_string($conn, $_SESSION['user_id']);
-$sql = "SELECT post_id,username,caption from post natural join user where post.user_id in (select user_id_2 from followers where user_id_1 = '".$user_id."') LIMIT $limit OFFSET $start"; //We need to change this query since friends can see their friends posts only
+$user_id = $_POST['user_id'];//////////////////////////////
+$sql = "SELECT post_id,username,caption from post natural join user where user_id='$user_id' LIMIT $limit OFFSET $start"; //We need to change this query since friends can see their friends posts only
 $result = mysqli_query($conn, $sql);
-$user_id = $_SESSION['user_id'];
 
-// $posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
 $k = $start;
 
 if (mysqli_num_rows($result) > 0) {
@@ -37,7 +40,8 @@ if (mysqli_num_rows($result) > 0) {
         $result2 = mysqli_query($conn, $sql2);
         $like_id = $row['post_id'];
         $likestatus = "";
-        $query = "SELECT * from likes where user_id='$user_id' and post_id='$like_id'";
+        $liker = mysqli_real_escape_string($conn, $_SESSION['user_id']);
+        $query = "SELECT * from likes where user_id='$liker' and post_id='$like_id'";
         $queryresult = mysqli_query($conn, $query);
         if (mysqli_num_rows($queryresult) > 0) {
             $likestatus = "liked";
@@ -88,7 +92,7 @@ if (mysqli_num_rows($result) > 0) {
         echo
             "</li>
           </ul>
-          <div><button class='likebtn " . $likestatus . "'id=" . $like_id . " name=" . $like_id . " value= '0' onclick='likeme(event)'><i class='fas fa-thumbs-up fa-2x'></i> <h5>" . $likecount['likeCount'] . "</h5></button><button onclick='focuss(event)' name=" . $like_id . " value=" . $start . " class='comment btn btn-success'>View Comments</button></div>
+          <div><button class='likebtn " . $likestatus . "'id=" . $like_id . " name=" . $like_id . " value= '0' onclick='likeme(event)'><i class='fas fa-thumbs-up fa-2x'></i> <h5>" . $likecount['likeCount'] . "</h5></button><button onclick='focuss(event)' name=" . $like_id . " class='comment btn btn-success'>See comments</button></div>
           </div>";
         $k += 1;
     }

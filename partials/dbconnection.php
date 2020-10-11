@@ -1,8 +1,4 @@
 <?php
-if (!(isset($_SESSION["username"]) && isset($_SESSION["user_id"]))) {
-    header("Location: /spin/login/login.php");
-    exit();
-}
 $host = "localhost";
 $user = "root";
 $password = "";

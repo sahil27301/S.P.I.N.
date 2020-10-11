@@ -13,7 +13,7 @@ var output = "";
 // });
 window.addEventListener("scroll", function () {
   var { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-  if (scrollTop + clientHeight >= scrollHeight && more) {
+  if (scrollTop + clientHeight + 10 >= scrollHeight && more) {
     loading.classList.add("show");
     setTimeout(() => {
       loading.classList.remove("show");
@@ -27,14 +27,21 @@ window.addEventListener("scroll", function () {
 $(document).ready(fetchpost);
 
 function fetchpost(event) {
+  // console.log(start);
   if (!more) {
     return;
   }
   var xhr = new XMLHttpRequest();
   // console.log("hell");
-  xhr.open("POST", "fetchmyposts.php", true);
+  xhr.open("POST", "fetchuserprofile.php", true);
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  var params = "start=" + start + "&limit=" + limit;
+  var params =
+    "start=" +
+    start +
+    "&limit=" +
+    limit +
+    "&user_id=" +
+    findGetParameter("user_profile");
   xhr.onload = function (event) {
     if (this.status == 200) {
       // console.log("facebook");
@@ -51,4 +58,15 @@ function fetchpost(event) {
   };
   xhr.send(params);
   start += limit;
+}
+
+function findGetParameter(parameterName) {
+  var result = null,
+    tmp = [];
+  var items = location.search.substr(1).split("&");
+  for (var index = 0; index < items.length; index++) {
+    tmp = items[index].split("=");
+    if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+  }
+  return result;
 }

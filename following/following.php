@@ -5,7 +5,6 @@ if (!(isset($_SESSION["username"]) && isset($_SESSION["user_id"]))) {
     exit();
 }
 $user_id = $_SESSION['user_id'];
-
 require $_SERVER['DOCUMENT_ROOT'].'/spin/partials/dbConnection.php';
 ?>
 <!DOCTYPE html>
@@ -31,9 +30,10 @@ require $_SERVER['DOCUMENT_ROOT'].'/spin/partials/dbConnection.php';
         require $_SERVER['DOCUMENT_ROOT'].'/spin/partials/sidebar.php';
         require $_SERVER['DOCUMENT_ROOT'].'/spin/partials/navbar.php';
     ?>
-    <h1>My Posts</h1>
+        <br>
+        <h1>Following</h1>
     <div id="main">
-        <div id="mypostsarea"></div>
+        <div id="myfollowersarea"></div>
         <div id="loader" class="loader">
             <!-- loading css animation -->
             <div class="circle"></div>
@@ -55,7 +55,7 @@ require $_SERVER['DOCUMENT_ROOT'].'/spin/partials/dbConnection.php';
             visible = !visible;
         }
     </script>
-    <script>
+    <!-- <script>
         var state = true;
         var likes = 0;
 
@@ -64,8 +64,6 @@ require $_SERVER['DOCUMENT_ROOT'].'/spin/partials/dbConnection.php';
 
             var post_id = event.currentTarget.name;
             // console.log(event.currentTarget.children[1].innerHTML);
-            var like_count=event.currentTarget.children[1]
-            // console.log('actually '+like_count);
             document.getElementById(post_id).classList.toggle("liked");
             if ($("#" + post_id).hasClass("liked")) {
                 state = true;
@@ -76,26 +74,20 @@ require $_SERVER['DOCUMENT_ROOT'].'/spin/partials/dbConnection.php';
             }
             // console.log(post_id);
             var xhr = new XMLHttpRequest();
-            xhr.open("POST", "/spin/home/likes.php", true);
+            xhr.open("POST", "likes.php", true);
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             var params = "state=" + state + "&post_id=" + post_id;
             // console.log(params);
             xhr.onload = function(event) {
                 if (this.status == 200) {
 
-                    // console.log(this.responseText);
-                    if (this.responseText=="shaana") {
-                        alert("chal hatt lombdi");
-                        // console.log(like_count);
-                        like_count.innerHTML = parseInt(like_count.innerHTML) - 1
-                        // console.log(like_count);
-                    }
+                    console.log(this.responseText);
                 }
             }
             xhr.send(params);
         }
-    </script>
-    <script>
+    </script> -->
+    <!-- <script>
         function focuss(event) {
             var post_id = event.currentTarget.name;
             var start = event.currentTarget.value;
@@ -115,8 +107,8 @@ require $_SERVER['DOCUMENT_ROOT'].'/spin/partials/dbConnection.php';
             xhr.send(params);
 
         }
-    </script>
-    <script src="myposts.js"></script>
+    </script> -->
+    <script src="following.js"></script>
 </body>
 
 </html>

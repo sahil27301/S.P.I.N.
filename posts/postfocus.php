@@ -67,15 +67,15 @@ $username_of_post = '';
         require $_SERVER['DOCUMENT_ROOT'].'/spin/partials/navbar.php';
     ?>
     <script>
-        var state = false;
+        var visible = false;
 
         function toggleNav() {
-            if (!state) {
+            if (!visible) {
                 document.getElementById("mySidebar").style.width = "250px";
             } else {
                 document.getElementById("mySidebar").style.width = "0";
             }
-            state = !state;
+            visible = !visible;
         }
     </script>
     <?php
@@ -245,6 +245,8 @@ $username_of_post = '';
 
             var post_id = event.currentTarget.name;
             // console.log(event.currentTarget.children[1].innerHTML);
+            var like_count=event.currentTarget.children[1]
+            // console.log('actually '+like_count);
             document.getElementById(post_id).classList.toggle("liked");
             if ($("#" + post_id).hasClass("liked")) {
                 state = true;
@@ -261,7 +263,14 @@ $username_of_post = '';
             // console.log(params);
             xhr.onload = function(event) {
                 if (this.status == 200) {
-                    console.log(this.responseText);
+
+                    // console.log(this.responseText);
+                    if (this.responseText=="shaana") {
+                        alert("chal hatt lombdi");
+                        // console.log(like_count);
+                        like_count.innerHTML = parseInt(like_count.innerHTML) - 1
+                        // console.log(like_count);
+                    }
                 }
             }
             xhr.send(params);

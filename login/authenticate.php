@@ -6,14 +6,7 @@
     // I've used session variables to store the username on success and error message on failure
     session_start();
     echo "Checking...";
-    $host = "localhost";
-    $user = "root";
-    $password = "";
-    $database = "spin";
-    $conn = mysqli_connect($host, $user, $password, $database);
-    if ($conn->connect_error) {
-        die("connection failed: " . $conn->connect_error);
-    }
+    require $_SERVER['DOCUMENT_ROOT'].'/spin/partials/dbConnection.php';
     // The user might've entered the username or email so check both
     $stmt = $conn->prepare("select user_id,password from user where username=? or email=?");
     $stmt->bind_param("ss", $username, $username);

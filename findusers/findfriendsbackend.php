@@ -4,13 +4,7 @@
         header("Location: /spin/login/login.php");
         exit();
     }
-    $host = "localhost";
-    $user = "root";
-    $password = "";
-    $database = "spin";
-    $conn = mysqli_connect($host, $user, $password, $database);
-    if ($conn->connect_error)
-        die("connection failed: " . $conn->connect_error);
+    require $_SERVER['DOCUMENT_ROOT'].'/spin/partials/dbConnection.php';
     $searchTerm = '%'.$_GET['term'].'%';
     $searchTerm = str_replace(' ','', $searchTerm);
     // print_r($_GET);

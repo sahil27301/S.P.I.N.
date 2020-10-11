@@ -38,7 +38,7 @@ input {
 }
 
 .submit_btn {
-  margin-top: 30px;
+  margin: 30px;
   -webkit-border-radius: 8;
   -moz-border-radius: 8;
   border-radius: 8px;
@@ -55,6 +55,6 @@ input {
   text-decoration: none;
 }
 
-.mid{
+.mid {
   margin-bottom: 40px;
 }

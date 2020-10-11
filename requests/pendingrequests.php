@@ -55,12 +55,12 @@
                     echo "<div id ='".$row['user_id']."'>";
                     echo $row['username'];
                     echo "<br>".$row['firstname']." ".$row['lastname'];
-                    echo ' <img src="data:image/jpeg;charset=utf8;base64,' . base64_encode($row['profile_photo']) . '" class="d-block" height=300 />';
+                    echo ' <img src="data:image/jpeg;charset=utf8;base64,' . base64_encode($row['profile_photo']) . '" class="d-block" height=300 style="margin:auto;"/>';
                     echo "<p>".$row['bio']."</p>";
                     echo "<br><br>";
                     echo "
-                        <button class='".$row['user_id']."' onclick='accept(event)'>Accept</button>
-                        <button class='".$row['user_id']."' onclick='reject(event)'>Reject</button>
+                        <button class='".$row['user_id']." btn btn-success' onclick='accept(event)'>Accept</button>
+                        <button class='".$row['user_id']." btn btn-danger' onclick='reject(event)'>Reject</button>
                     </div>";
                 }
             ?>
@@ -86,7 +86,7 @@
         function accept(e) {
             // console.log(e.target.className);
 
-            params="mode=accept&id="+e.target.className;
+            params="mode=accept&id="+e.target.classList.item(0);
 
             const xhr = new XMLHttpRequest();
             xhr.open("POST", "acceptdeletereq.php", true);
@@ -97,14 +97,14 @@
                 // console.log(this.responseText);
                 }
             };
-            document.getElementById(e.target.className).remove();
+            document.getElementById(e.target.classList.item(0)).remove();
 
             xhr.send(params);
         }
         function reject(e) {
             // console.log(e.target.className);
 
-            params="mode=reject&id="+e.target.className;
+            params="mode=reject&id="+e.target.classList.item(0);
 
             const xhr = new XMLHttpRequest();
             xhr.open("POST", "acceptdeletereq.php", true);
@@ -115,7 +115,7 @@
                 // console.log(this.responseText);
                 }
             };
-            document.getElementById(e.target.className).remove();
+            document.getElementById(e.target.classList.item(0)).remove();
 
 
             xhr.send(params);

@@ -149,7 +149,7 @@ if (isset($_POST['insert'])) {
        	  <div class=""><?php echo $errors['username'];?></div>   <!--Outputs error-->
           <hr>
           <label for="password">Password</label>
-          <input type="password" id="password" name="password" required>
+          <input type="password" id="password" name="password" minlength="8" required>
           <hr>
           <label for="email">Email Address</label>
           <input type="email" id="email" name="email" required
